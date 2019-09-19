@@ -117,7 +117,7 @@
                                 <dd class="portletItem lastItem">
                                     <ul class="navTree navTreeLevel0">
                                         <li class="navTreeItem visualNoMarker section-cursos-tecnicos">
-                                            <a href="https://www.ifmg.edu.br/ourobranco/nossos-cursos/cursos-tecnicos" title="" class="state-published">
+                                            <a href="" title="" class="state-published">
                                                 <span>Relatórios</span>
                                             </a>    
                                         </li>

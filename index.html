@@ -4,24 +4,50 @@
   <title>Login</title>
 <meta charset="utf-8">
 <LINK REL=StyleSheet href="index.css" Type="text/css">
-<LINK REL=StyleSheet href="index.js" Type="text/js">
+<script type="text/javascript">
+  function showDiv( idName, value ){
+    objDiv = document.getElementById( idName );
+    if( value )
+        objDiv.style.display = "";
+    else
+        objDiv.style.display = "none";
+  }
+</script>
 </head>
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Já tem cadastro? <a href="#">Sign In</a></p>
+    <div id="d2" style="display:none;">
+      <form class="register-form">
+        <input type="text" placeholder="e-mail"/>
+        <input type="password" placeholder="senha"/>
+        <input type="password" placeholder="confirmar senha"/>
+        <select id="idCategoria" name="idCategoria" class="form-control">
+                <option>Selecione a área</option>
+                <option value="Sim">Biologia</option>
+                <option value="Não">Física</option>
+                <option value="Não">Química</option>
+              </select>
+        <button>cadastrar</button>
+        <p class="message">Já é cadastrado? <a href="javascript:void(0)" onclick="javascript:showDiv( 'd1', true );showDiv( 'd2', false );">Faça login.</a></p>
     </form>
-    <form class="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p class="message">Não tem cadastro? <a href="#">Cadastre-se.</a></p>
+    </div>
+    <div id="d1" style="display: ">
+      <form class="login-form">
+        <input type="text" placeholder="e-mail"/>
+        <input type="password" placeholder="senha"/>
+        <p class="message"><a href="javascript:void(0)" onclick="javascript:showDiv( 'd1', false );showDiv( 'd3', true );">Esqueceu a senha?</a> </p>
+        <br>
+        <button type="submit">login</button>
+        <p class="message">Não é cadastrado? <a href="javascript:void(0)" onclick="javascript:showDiv( 'd1', false );showDiv( 'd2', true );">Cadastre-se.</a></p>
+      </form>
+    </div>
+    <div id="d3" style="display:none;">
+      <form class="senha-form">
+        <input type="text" placeholder="e-mail"/>
+        <button onclick="javascript:showDiv( 'd1', true );showDiv( 'd3', false );">confirmar</button>
     </form>
+    </div>
   </div>
 </div>
 </body>
