@@ -139,7 +139,7 @@
                                     <ul class="navTree navTreeLevel0">
                                         <li class="navTreeItem visualNoMarker section-cursos-tecnicos">
                                             <a href="agenda.php" title="" class="state-published">
-                                                <span>Agenda</span>
+                                                <span>Agendar</span>
                                             </a>    
                                         </li>
                                     </ul>

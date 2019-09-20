@@ -43,6 +43,14 @@
                           <div class="col-md-5">
                             <input id="idTitulo" name="idTitulo" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
                           </div>
+                          <div class="col-md-2">
+                              <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+                                <option value="Selecione">Área</option> 
+                                <option value="Sim">Biologia</option>
+                                <option value="Não">Física</option>
+                                <option value="Não">Química</option>
+                              </select> 
+                            </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="idAutor">Localização</label>  
@@ -82,6 +90,14 @@
                         <label class="col-md-4 control-label" for="idTitulo">Descrição</label>  
                         <div class="col-md-5">
                             <input id="idTitulo" name="idTitulo" type="text" placeholder="Descrição" class="form-control input-md" required="" value="pHmetro" style="text-align: center;">
+                        </div>
+                        <div class="col-md-2">
+                          <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+                            <option value="Selecione">Área</option> 
+                            <option value="Sim">Biologia</option>
+                            <option value="Não">Física</option>
+                            <option value="Não">Química</option>
+                          </select> 
                         </div>
                     </div>
                     <div class="form-group">
