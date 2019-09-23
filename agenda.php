@@ -13,6 +13,7 @@
       <tr>
         <th scope="col">Responsável</th>
         <th scope="col">Data</th>
+        <th scope="col">Descrição</th>
         <th scope="col">Horário inicio</th>
         <th scope="col">Horário fim</th>
         <th></th>
@@ -21,6 +22,7 @@
     <tbody>
       <tr>
         <td scope="row">Karla</td>
+        <td>Aula prática</td>
         <td>13/09/2019</td>
         <td>9:00</td>
         <td>11:00</td>
@@ -46,6 +48,12 @@
               <label class="col-md-4 control-label" for="idTitulo">Data: </label>  
               <div class="col-md-5">
                 <input type="date" class="form-control input-md" style="text-align: center;">    
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="idTitulo">Descrição: </label>  
+              <div class="col-md-5">
+                <input id="idEdicao" name="idEdicao" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">  
               </div>
             </div>
             <div class="form-group">
@@ -84,6 +92,12 @@
               <label class="col-md-4 control-label" for="idTitulo">Data: </label>  
               <div class="col-md-5">
                 <input type="date" class="form-control input-md" style="text-align: center;">    
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="idTitulo">Descrição: </label>  
+              <div class="col-md-5">
+                <input id="idEdicao" name="idEdicao" type="text" value="Aula prática" class="form-control input-md" required="" style="text-align: center;">  
               </div>
             </div>
             <div class="form-group">
