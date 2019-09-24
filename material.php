@@ -7,7 +7,7 @@
 
   <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addUsuarioModal">Cadastrar</button>
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Cadastrar</button>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -22,29 +22,29 @@
           <td scope="row">Balão de fundo chato 500ml</td>
           <td>Armário X</td>
           <td>6</td>
-          <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulUsuarioModal">Visualizar</button></td>
+          <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulMaterialModal">Visualizar</button></td>
         </tr>
       </tbody>
     </table>
 
-    <div id="addUsuarioModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;"> 
+    <div id="addMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;"> 
           <div class="modal-dialog" role="document">
               <div class="modal-content" style="width: 150%">
                 <div class="modal-header">
-                  <h4 class="modal-title" id="addUsuarioModalLabel">Cadastrar Material</h4>
+                  <h4 class="modal-title" id="addMaterialModalLabel">Cadastrar Material</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                  <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
+                  <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                       <p></p>
                       <div class="form-group">
-                          <label class="col-md-4 control-label" for="idTitulo">Descrição</label>  
+                          <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>  
                             <div class="col-md-5">
-                              <input id="idTitulo" name="idTitulo" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+                              <input id="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
                             </div>
                             <div class="col-md-2">
-                            <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+                            <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
                               <option value="Selecione">Área</option> 
                               <option value="Sim">Biologia</option>
                               <option value="Não">Física</option>
@@ -53,15 +53,15 @@
                           </div>
                       </div>
                       <div class="form-group">
-                          <label class="col-md-4 control-label" for="idAutor">Localização</label>  
+                          <label class="col-md-4 control-label" for="local_mat">Localização</label>  
                           <div class="col-md-5">
-                              <input id="idAutor" name="idAutor" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">    
+                              <input id="local_mat" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">    
                           </div>
                       </div>
                       <div class="form-group">
-                          <label class="col-md-4 control-label" for="idEdicao">Quantidade</label>  
+                          <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>  
                           <div class="col-md-5">
-                              <input id="idEdicao" name="idEdicao" type="text" placeholder="Quantidade" class="form-control input-md" required="" style="text-align: center;"> 
+                              <input id="qtd_Mat" type="text" placeholder="Quantidade" class="form-control input-md" required="" style="text-align: center;"> 
                           </div>
                       </div>
                       <div class="modal-footer">
@@ -74,11 +74,11 @@
     </div>
 
 
-    <div id="visulUsuarioModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
+    <div id="visulMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
       <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 150%">
           <div class="modal-header">
-            <h4 class="modal-title" id="visulUsuarioModalLabel">Detalhes do Material</h4>
+            <h4 class="modal-title" id="visulMaterialModalLabel">Detalhes do Material</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -87,12 +87,12 @@
           <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
             <p></p>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="idTitulo">Descrição</label>  
+                <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>  
                 <div class="col-md-5">
-                  <input id="idTitulo" name="idTitulo" type="text" placeholder="Descrição" class="form-control input-md" required="" value="Balão de fundo chato 500ml" style="text-align: center;">
+                  <input id="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" value="Balão de fundo chato 500ml" style="text-align: center;">
                 </div>
                 <div class="col-md-2">
-                  <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+                  <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
                     <option value="Selecione">Área</option> 
                     <option value="Sim">Biologia</option>
                     <option value="Não">Física</option>
@@ -101,15 +101,15 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="idAutor">Localização</label>  
+                <label class="col-md-4 control-label" for="local_mat">Localização</label>  
                 <div class="col-md-5">
-                  <input id="idAutor" name="idAutor" type="text" placeholder="Localização" class="form-control input-md" required="" value="Armário X" style="text-align: center;">    
+                  <input id="local_mat" type="text" placeholder="Localização" class="form-control input-md" required="" value="Armário X" style="text-align: center;">    
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="idEdicao">Quantidade</label>  
+                <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>  
                 <div class="col-md-5">
-                  <input id="idEdicao" name="idEdicao" type="text" placeholder="Quantidade" class="form-control input-md" required="" value="6" style="text-align: center;"> 
+                  <input id="qtd_Mat" type="text" placeholder="Quantidade" class="form-control input-md" required="" value="6" style="text-align: center;"> 
                 </div>
               </div>
               <div class="modal-footer">

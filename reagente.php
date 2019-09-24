@@ -7,7 +7,7 @@
 
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
   <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addUsuarioModal">Cadastrar</button>
+  <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addReagenteModal">Cadastrar</button>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -28,30 +28,30 @@
         <td>Sim</td>
         <td>risco</td>
         <td>2 L</td>
-        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulUsuarioModal">Visualizar</button></td>
+        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></td>
       </tr>
     </tbody>
   </table>
 
-  <div id="addUsuarioModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
+  <div id="addReagenteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
   <!-- style="position: fixed; height: 100; margin-top: -15.2%; margin-left: -6%; --> 
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="width: 150%">
         <div class="modal-header">
-          <h4 class="modal-title" id="addUsuarioModalLabel">Cadastrar Reagente</h4>
+          <h4 class="modal-title" id="addReagenteModalLabel">Cadastrar Reagente</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
           <p></p>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idTitulo">CAS</label>  
+            <label class="col-md-4 control-label" for="cas">CAS</label>  
             <div class="col-md-5">
-              <input id="idTitulo" name="idTitulo" type="text" placeholder="CAS" class="form-control input-md" required="" style="text-align: center;">
+              <input id="cas" type="text" placeholder="CAS" class="form-control input-md" required="" style="text-align: center;">
             </div>
             <div class="col-md-2">
-              <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+              <select class="form-control" id="area_Reag" style="margin: 0% -60% 0% 0%">
                 <option value="Selecione">Área</option> 
                 <option value="Sim">Biologia</option>
                 <option value="Não">Física</option>
@@ -60,21 +60,21 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idAutor">Descrição</label>  
+            <label class="col-md-4 control-label" for="desc_Reag">Descrição</label>  
             <div class="col-md-5">
-              <input id="idAutor" name="idAutor" type="text" placeholder="Nome" class="form-control input-md" required="" style="text-align: center;">  
+              <input id="desc_Reag" type="text" placeholder="Nome" class="form-control input-md" required="" style="text-align: center;">  
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idEdicao">Localização</label>  
+            <label class="col-md-4 control-label" for="local_Reag">Localização</label>  
             <div class="col-md-5">
-              <input id="idEdicao" name="idEdicao" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">
+              <input id="local_Reag" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idCategoria">Controlado</label>
+            <label class="col-md-4 control-label" for="controlado">Controlado</label>
             <div class="col-md-3">
-              <select id="idCategoria" name="idCategoria" class="form-control">
+              <select id="controlado" class="form-control">
                 <option>Selecione</option>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
@@ -82,9 +82,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idTitulo">Classe: </label>  
+            <label class="col-md-4 control-label" for="classe">Classe: </label>  
             <div class="col-md-5">
-              <select id="idClasse" name="idClasse" class="form-control">
+              <select id="classe" class="form-control">
                 <option>Selecione</option>
                 <option value="Ácido">Ácido</option>
                 <option value="Ácido Carboxílico">Ácido Carboxílico</option>
@@ -109,9 +109,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idRisco">Risco</label>
+            <label class="col-md-4 control-label" for="risco">Risco</label>
             <div class="col-md-3">
-              <select id="idRisco" name="idCategoria" class="form-control">
+              <select id="risco" class="form-control">
                 <option value="Risco1">Selecione</option>
               </select>
             </div>
@@ -125,7 +125,7 @@
                 <input placeholder="Quantidade" class="form-control input-md" style="text-align: center;">
             </div>
             <div class="col-md-2">
-              <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+              <select class="form-control" style="margin: 0% -60% 0% 0%">
                 <option value="Selecione">Unidade</option> 
                 <option value="L">L</option> 
               </select> 
@@ -152,25 +152,25 @@
     </div>
   </div>
 
-  <div id="visulUsuarioModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
+  <div id="visulReagenteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="width: 150%">
         <div class="modal-header">
-          <h4 class="modal-title" id="visulUsuarioModalLabel">Detalhes do Reagente</h4>
+          <h4 class="modal-title" id="visulReagenteModalLabel">Detalhes do Reagente</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
           
-        <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
           <p></p>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idTitulo">CAS</label>  
+            <label class="col-md-4 control-label" for="cas">CAS</label>  
             <div class="col-md-5">
-              <input id="idTitulo" name="idTitulo" type="text" placeholder="CAS" class="form-control input-md" required="" value="64-19-7" style="text-align: center;">
+              <input id="cas" type="text" placeholder="CAS" class="form-control input-md" required="" value="64-19-7" style="text-align: center;">
             </div>
             <div class="col-md-2">
-              <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+              <select class="form-control" id="area_Reag" style="margin: 0% -60% 0% 0%">
                 <option value="Selecione">Área</option> 
                 <option value="Sim">Biologia</option>
                 <option value="Não">Física</option>
@@ -179,21 +179,21 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idAutor">Descrição</label>  
+            <label class="col-md-4 control-label" for="desc_Reag">Descrição</label>  
             <div class="col-md-5">
-              <input id="idAutor" name="idAutor" type="text" placeholder="Nome" class="form-control input-md" required="" value="Ácido Acético" style="text-align: center;">
+              <input id="desc_Reag" type="text" placeholder="Nome" class="form-control input-md" required="" value="Ácido Acético" style="text-align: center;">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idEdicao">Localização</label>  
+            <label class="col-md-4 control-label" for="local_Reag">Localização</label>  
             <div class="col-md-5">
-              <input id="idEdicao" name="idEdicao" type="text" placeholder="Localização" class="form-control input-md" required="" value="Armário X" style="text-align: center;">
+              <input id="local_Reag" type="text" placeholder="Localização" class="form-control input-md" required="" value="Armário X" style="text-align: center;">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idCategoria">Controlado</label>
+            <label class="col-md-4 control-label" for="controlado">Controlado</label>
             <div class="col-md-3">
-              <select id="idCategoria" name="idCategoria" class="form-control">
+              <select id="controlado" class="form-control">
                 <option>Selecione</option>
                 <option value="Sim" selected="">Sim</option>
                 <option value="Não">Não</option>
@@ -201,9 +201,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idTitulo">Classe: </label>  
+            <label class="col-md-4 control-label" for="classe">Classe: </label>  
             <div class="col-md-5">
-              <select id="idClasse" name="idClasse" class="form-control">
+              <select id="classe" class="form-control">
                 <option>Selecione</option>
                 <option value="Ácido">Ácido</option>
                 <option value="Ácido Carboxílico">Ácido Carboxílico</option>
@@ -228,9 +228,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idRisco">Risco</label>
+            <label class="col-md-4 control-label" for="risco">Risco</label>
             <div class="col-md-3">
-              <select id="idRisco" name="idCategoria" class="form-control">
+              <select id="risco" class="form-control">
                 <option value="Risco">Selecione</option>
                 <option selected="">Risco</option>
               </select>
@@ -245,7 +245,7 @@
               <input placeholder="Quantidade" value="2" class="form-control input-md" style="text-align: center;">
             </div>
             <div class="col-md-2">
-              <select name="Quantidade" class="form-control" style="margin: 0% -60% 0% 0%">
+              <select class="form-control" style="margin: 0% -60% 0% 0%">
                 <option value="Selecione">Unidade</option> 
                 <option value="L" selected="">L</option> 
               </select> 
@@ -277,17 +277,17 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="addUsuarioModalLabel">Cadastrar Classe</h4>
+          <h4 class="modal-title" id="addClasseModalLabel">Cadastrar Classe</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
           <p></p>
             <div class="form-group">
-              <label class="col-md-4 control-label" for="idTitulo">Classe</label>  
+              <label class="col-md-4 control-label" for="desc_Classe">Descrição</label>  
               <div class="col-md-5">
-                <input id="idTitulo" name="idTitulo" type="text" placeholder="Classe" class="form-control input-md" required="" style="text-align: center;">
+                <input id="desc_Classe" type="text" placeholder="Classe" class="form-control input-md" required="" style="text-align: center;">
               </div>
             </div>
             <div class="modal-footer">
@@ -302,17 +302,17 @@
   <div id="addRiscoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; margin-top: -10%; margin-left: 10%;">  <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="addUsuarioModalLabel">Cadastrar Risco</h4>
+          <h4 class="modal-title" id="addRiscoModalLabel">Cadastrar Risco</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
           <p></p>
             <div class="form-group">
-              <label class="col-md-4 control-label" for="idTitulo">Risco</label>  
+              <label class="col-md-4 control-label" for="desc_Risco">Descrição</label>  
               <div class="col-md-5">
-                <input id="idTitulo" name="idTitulo" type="text" placeholder="Risco" class="form-control input-md" required="" style="text-align: center;">
+                <input id="desc_Risco" type="text" placeholder="Risco" class="form-control input-md" required="" style="text-align: center;">
               </div>
             </div>
             <div class="modal-footer">
