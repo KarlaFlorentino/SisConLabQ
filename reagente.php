@@ -11,6 +11,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th></th>
         <th scope="col">CAS</th>
         <th scope="col">Descrição</th>
         <th scope="col">Localização</th>
@@ -22,7 +23,28 @@
     </thead>
     <tbody>
       <tr>
-        <th scope="row">64-19-7</th>
+        <th scope="row"><img src="imagens/vencido.png" alt="Vencido" title="Vencido" width="15" height="15"></th>
+        <td>64-19-7</td>
+        <td>Ácido Acético</td>
+        <td>Armário X</td>
+        <td>Sim</td>
+        <td>risco</td>
+        <td>2 L</td>
+        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></td>
+      </tr>
+      <tr>
+        <th scope="row"><img src="imagens/quase.png" alt="Quase vencido" title="Quase vencido" width="15" height="15"></th>
+        <td>64-19-7</td>
+        <td>Ácido Acético</td>
+        <td>Armário X</td>
+        <td>Sim</td>
+        <td>risco</td>
+        <td>2 L</td>
+        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></td>
+      </tr>
+      <tr>
+        <th scope="row"><img src="imagens/ok.png" alt="Ok" title="Ok" width="15" height="15"></th>
+        <td>64-19-7</td>
         <td>Ácido Acético</td>
         <td>Armário X</td>
         <td>Sim</td>
