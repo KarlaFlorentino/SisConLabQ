@@ -1,124 +1,172 @@
 <LINK REL=StyleSheet href="listarReagente.css" Type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
 
 <?php include"header.php"; ?>
 
 <!-- Conteudo -->
 
-  <div id="portal-column-content" class="cell width-3:4 position-1:4">
+
+<div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Cadastrar</button>
+    <button type="button" class="btn btn-outline-success" data-toggle="modal"
+        data-target="#addMaterialModal">Cadastrar</button>
     <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Descrição</th>
-          <th scope="col">Localização</th>
-          <th scope="col">Quantidade</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td scope="row">Balão de fundo chato 500ml</td>
-          <td>Armário X</td>
-          <td>6</td>
-          <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulMaterialModal">Visualizar</button></td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th scope="col">Descrição</th>
+                <th scope="col">Localização</th>
+                <th scope="col">Quantidade</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row">Balão de fundo chato 500ml</td>
+                <td>Armário X</td>
+                <td>6</td>
+                <td><button type="button" class="btn btn-outline-success" data-toggle="modal"
+                        data-target="#visulMaterialModal">Visualizar</button></td>
+            </tr>
+        </tbody>
     </table>
 
-    <div id="addMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;"> 
-          <div class="modal-dialog" role="document">
-              <div class="modal-content" style="width: 150%">
+    <span id="msg"></span>
+
+    <div id="addMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static"
+        style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 150%">
                 <div class="modal-header">
-                  <h4 class="modal-title" id="addMaterialModalLabel">Cadastrar Material</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                    <h4 class="modal-title" id="addMaterialModalLabel">Cadastrar Material</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                  <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                      <p></p>
-                      <div class="form-group">
-                          <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>  
-                            <div class="col-md-5">
-                              <input id="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
-                            </div>
-                            <div class="col-md-2">
-                            <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
-                              <option value="Selecione">Área</option> 
-                              <option value="Sim">Biologia</option>
-                              <option value="Não">Física</option>
-                              <option value="Não">Química</option>
-                            </select> 
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="col-md-4 control-label" for="local_mat">Localização</label>  
-                          <div class="col-md-5">
-                              <input id="local_mat" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">    
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>  
-                          <div class="col-md-5">
-                              <input id="qtd_Mat" type="text" placeholder="Quantidade" class="form-control input-md" required="" style="text-align: center;"> 
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-success" data-dismiss="modal" style="margin-right: 78%">Cadastrar</button>
-                          <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-    </div>
-
-
-    <div id="visulMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 150%">
-          <div class="modal-header">
-            <h4 class="modal-title" id="visulMaterialModalLabel">Detalhes do Material</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          
-          <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
-            <p></p>
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>  
-                <div class="col-md-5">
-                  <input id="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" value="Balão de fundo chato 500ml" style="text-align: center;">
-                </div>
-                <div class="col-md-2">
-                  <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
-                    <option value="Selecione">Área</option> 
-                    <option value="Sim">Biologia</option>
-                    <option value="Não">Física</option>
-                    <option value="Não">Química</option>
-                  </select> 
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="local_mat">Localização</label>  
-                <div class="col-md-5">
-                  <input id="local_mat" type="text" placeholder="Localização" class="form-control input-md" required="" value="Armário X" style="text-align: center;">    
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>  
-                <div class="col-md-5">
-                  <input id="qtd_Mat" type="text" placeholder="Quantidade" class="form-control input-md" required="" value="6" style="text-align: center;"> 
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" data-dismiss="modal" style="margin-right: 82%">Editar</button>
-                <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
-              </div>
-          </form>  
+                <form class="form-horizontal" method="post" id="insert_form">
+                    <p></p>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>
+                        <div class="col-md-5">
+                            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição"
+                                class="form-control input-md" required="" style="text-align: center;">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" id="area_Mat" name="area_Mat" style="margin: 0% -60% 0% 0%">
+                                <option value="Área">Área</option>
+                                <option value="Biologia">Biologia</option>
+                                <option value="Física">Física</option>
+                                <option value="Química">Química</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="local_Mat">Localização</label>
+                        <div class="col-md-5">
+                            <input id="local_Mat" name="local_Mat" type="text" placeholder="Localização"
+                                class="form-control input-md" required="" style="text-align: center;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>
+                        <div class="col-md-5">
+                            <input id="qtd_Mat" name="qtd_Mat" type="text" placeholder="Quantidade"
+                                class="form-control input-md" required="" style="text-align: center;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <input type="submit" name="cadMat" id="cadMat" value="Cadastrar" class="btn btn-outline-success" style="margin-right: 78%">
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+
+
+    <div id="visulMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static"
+        style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 150%">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="visulMaterialModalLabel">Detalhes do Material</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
+                    <p></p>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>
+                        <div class="col-md-5">
+                            <input id="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md"
+                                required="" value="Balão de fundo chato 500ml" style="text-align: center;">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
+                                <option value="Selecione">Área</option>
+                                <option value="Sim">Biologia</option>
+                                <option value="Não">Física</option>
+                                <option value="Não">Química</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="local_mat">Localização</label>
+                        <div class="col-md-5">
+                            <input id="local_mat" type="text" placeholder="Localização" class="form-control input-md"
+                                required="" value="Armário X" style="text-align: center;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>
+                        <div class="col-md-5">
+                            <input id="qtd_Mat" type="text" placeholder="Quantidade" class="form-control input-md"
+                                required="" value="6" style="text-align: center;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal"
+                            style="margin-right: 82%">Editar</button>
+                        <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('#insert_form').on('submit', function(event){
+			event.preventDefault();
+			//Receber os dados do formulário
+			var dados = $("#insert_form").serialize();
+
+            $.post("cadastrarM.php", dados, function (retorna){
+                //window.open("cadastrarM.php")
+                //retorna = false;
+				if(retorna){
+					//Alerta de cadastro realizado com sucesso
+					$("#msg").html('<div class="alert alert-success" role="alert">Material cadastrado com sucesso!</div>');
+							
+					//Limpar os campos
+					$('#insert_form')[0].reset();
+							
+					//Fechar a janela modal cadastrar
+					$('#addMaterialModal').modal('hide');
+							
+					//listar_material(1, 50);
+				}else{
+					//Alerta falha de cadastro 
+                    $("#msg").html('<div class="alert alert-warning" role="alert">Falha no cadastro do Material!</div>');
+				}
+						
+			});
+		});
+	});
+</script>
 <?php include"footer.php"; ?>
