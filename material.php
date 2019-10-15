@@ -1,8 +1,5 @@
-<LINK REL=StyleSheet href="listarReagente.css" Type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-</script>
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <?php include"header.php"; ?>
 
 <!-- Conteudo -->
@@ -10,8 +7,14 @@
 
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-    <button type="button" class="btn btn-outline-success" data-toggle="modal"
-        data-target="#addMaterialModal">Cadastrar</button>
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Cadastrar</button>
+    <div style="margin: -5% 0% 0% 20%">    
+        <div class="col-md-5">
+            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+        </div>
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button>
+    </div>
+    
     <table class="table table-hover">
         <thead>
             <tr>
@@ -45,7 +48,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="form-horizontal" method="post" id="insert_form">
+                <form class="form-horizontal" method="post" id="insert_form_M">
                     <p></p>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>
@@ -139,34 +142,5 @@
         </div>
     </div>
 </div>
-<script>
-	$(document).ready(function(){
-		$('#insert_form').on('submit', function(event){
-			event.preventDefault();
-			//Receber os dados do formulário
-			var dados = $("#insert_form").serialize();
-
-            $.post("cadastrarM.php", dados, function (retorna){
-                //window.open("cadastrarM.php")
-                //retorna = false;
-				if(retorna){
-					//Alerta de cadastro realizado com sucesso
-					$("#msg").html('<div class="alert alert-success" role="alert">Material cadastrado com sucesso!</div>');
-							
-					//Limpar os campos
-					$('#insert_form')[0].reset();
-							
-					//Fechar a janela modal cadastrar
-					$('#addMaterialModal').modal('hide');
-							
-					//listar_material(1, 50);
-				}else{
-					//Alerta falha de cadastro 
-                    $("#msg").html('<div class="alert alert-warning" role="alert">Falha no cadastro do Material!</div>');
-				}
-						
-			});
-		});
-	});
-</script>
+<?php include"scriptM.js"; ?>
 <?php include"footer.php"; ?>

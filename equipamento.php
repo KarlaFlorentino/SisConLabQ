@@ -1,6 +1,5 @@
-<LINK REL=StyleSheet href="listarReagente.css" Type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <?php include"header.php"; ?>
 
 <!-- Conteudo -->
@@ -8,6 +7,12 @@
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addEquipamentoModal">Cadastrar</button>
+    <div style="margin: -5% 0% 0% 20%">    
+        <div class="col-md-5">
+            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+        </div>
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button>
+    </div>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -26,7 +31,7 @@
             </tr>
         </tbody>
     </table>
-
+<span id="msg"></span>
     <div id="addEquipamentoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 150%">
@@ -36,36 +41,36 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" id="insert_form_E" method="post">
                     <p></p>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="desc_Equip">Descrição</label>  
                           <div class="col-md-5">
-                            <input id="desc_Equip" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+                            <input id="desc_Equip" name="desc_Equip" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
                           </div>
                           <div class="col-md-2">
-                              <select id="area_Equip" class="form-control" style="margin: 0% -60% 0% 0%">
-                                <option value="Selecione">Área</option> 
-                                <option value="Sim">Biologia</option>
-                                <option value="Não">Física</option>
-                                <option value="Não">Química</option>
+                              <select id="area_Equip" name="area_Equip" class="form-control" style="margin: 0% -60% 0% 0%">
+                                <option value="Área">Área</option> 
+                                <option value="Biologia">Biologia</option>
+                                <option value="Física">Física</option>
+                                <option value="Química">Química</option>
                               </select> 
                             </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="local_Equip">Localização</label>  
                         <div class="col-md-5">
-                            <input id="local_Equip" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">    
+                            <input id="local_Equip" name="local_Equip" type="text" placeholder="Localização" class="form-control input-md" required="" style="text-align: center;">    
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="qtd_Equip">Quantidade</label>  
                         <div class="col-md-5">
-                            <input id="qtd_Equip" type="text" placeholder="Quantidade" class="form-control input-md" required="" style="text-align: center;"> 
+                            <input id="qtd_Equip" name="qtd_Equip" type="text" placeholder="Quantidade" class="form-control input-md" required="" style="text-align: center;"> 
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" style="margin-right: 78%">Cadastrar</button>
+                        <input type="submit" name="cadEq" id="cadEq" value="Cadastrar" class="btn btn-outline-success" style="margin-right: 78%">
                         <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
                     </div>
                 </form>
@@ -120,5 +125,6 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
+<?php include"scriptE.js"; ?>    
 <?php include"footer.php"; ?>

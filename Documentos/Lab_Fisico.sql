@@ -23,8 +23,6 @@ cas varchar(11) not null primary key,
 desc_Reag varchar(100) not null,
 local_Reag varchar(50) not null, 
 controlado varchar(3) not null, 
-classe varchar(100) not null, 
-risco varchar(100) not null, 
 qtd_Reag float not null,
 unidade varchar(3) not null, 
 validade date not null, 
@@ -86,4 +84,3 @@ foreign key (id_Agenda) references lab.Agenda(id_Agenda) on delete cascade
 );
 
 COMMIT;
-

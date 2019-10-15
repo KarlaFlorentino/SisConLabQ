@@ -1,4 +1,3 @@
-
 /* Merged Plone Javascript file
  * This file is dynamically assembled from separate parts.
  * Some of these parts have 3rd party licenses or copyright information attached
