@@ -330,7 +330,6 @@
       </div>
     </div>
   </div> 
-
   <div id="addRiscoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; margin-top: -10%; margin-left: 10%;">  
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -356,5 +355,6 @@
       </div>
     </div>
   </div>
+</div>
 <?php include"scriptR.js"; ?>    
 <?php include"footer.php"; ?>
