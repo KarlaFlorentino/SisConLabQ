@@ -84,3 +84,13 @@ foreign key (id_Agenda) references lab.Agenda(id_Agenda) on delete cascade
 );
 
 COMMIT;
+
+delete from lab.material;
+delete from lab.equipamento;
+delete from lab.classe;
+delete from lab.risco;
+select * from lab.reagente;
+select * from lab.material;
+select * from lab.equipamento;
+select * from lab.risco;
+select * from lab.classe;

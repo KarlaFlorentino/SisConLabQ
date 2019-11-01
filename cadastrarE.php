@@ -19,11 +19,10 @@
 	$sql->bindValue(":area_Equip",$area_Equip);
 	
 	
-	$conn = $sql->execute();
-
-	if($conn){
+	try{
+		$conn = $sql->execute();
 		echo true;
-	}else{
+	}catch(Exception $e){
 		echo false;
 	}
 ?>

@@ -18,11 +18,10 @@
 	$sql->bindValue(":area_Mat",$area_Mat);
 	$sql->bindValue(":local_Mat",$local_Mat);
 	
-	$conn = $sql->execute();
-
-	if($conn){
+	try{
+		$conn = $sql->execute();
 		echo true;
-	}else{
+	}catch(Exception $e){
 		echo false;
 	}
 ?>

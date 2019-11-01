@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
         <script type="text/javascript" src="javascript.js"></script>
+</script>
         
         <title>Home</title>
     </head>
@@ -26,7 +27,7 @@
             <div id="sobre">
                 <ul>
                     <li id="portalservicos-portal-antigo-ifmg-ouro-branco" class="portalservicos-item">
-                        <a href="index.html">Sair</a>
+                        <a href="index.html" title="Sair">Sair</a>
                     </li>
                 </ul>
             </div>
@@ -43,18 +44,6 @@
                 <!-- Column 1 -->
                 <div id="navigation">
                     <div id="portal-column-one" class="cell width-1:4 position-0">
-                        <div class="portletWrapper" id="portletwrapper-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f6f75726f6272616e636f0a706f72746c65745f737461746963" data-portlethash="706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f6f75726f6272616e636f0a706f72746c65745f737461746963">
-                            <dl class="portlet portletStaticText portlet-static">
-                                <dt class="portletHeader titleless">
-                                    <span class="portletTopLeft"></span>
-                                    <span>
-                                       
-                                    </span>
-                                    <span class="portletTopRight"></span>
-                                </dt>
-                            </dl>
-                        </div>
-
                         <div class="portletWrapper" id="portletwrapper-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f6f75726f6272616e636f0a6e6f73736f732d637572736f73" data-portlethash="706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f6f75726f6272616e636f0a6e6f73736f732d637572736f73">
                             <dl class="portlet portletNavigationTree">
                                 <dt class="portletHeader">
@@ -66,17 +55,17 @@
                                 <dd class="portletItem lastItem">
                                     <ul class="navTree navTreeLevel0">
                                         <li class="navTreeItem visualNoMarker section-cursos-tecnicos">
-                                            <a href="reagente.php" title="" class="state-published">
+                                            <a href="reagente.php" title="Reagentes" class="state-published">
                                                 <span>Reagentes</span>
                                             </a>    
                                         </li>
                                         <li class="navTreeItem visualNoMarker section-graduacao">
-                                            <a href="equipamento.php" title="" class="state-published">
+                                            <a href="equipamento.php" title="Equipamentos" class="state-published">
                                                 <span>Equipamentos</span>
                                             </a>
                                         </li>
                                         <li class="navTreeItem visualNoMarker section-graduacao">
-                                            <a href="material.php" title="" class="state-published">
+                                            <a href="material.php" title="Materiais" class="state-published">
                                                 <span>Materiais</span>
                                             </a>
                                         </li>
@@ -98,7 +87,7 @@
                                 <dd class="portletItem lastItem">
                                     <ul class="navTree navTreeLevel0">
                                         <li class="navTreeItem visualNoMarker section-cursos-tecnicos">
-                                            <a href="" title="" class="state-published">
+                                            <a href="" title="Relatórios" class="state-published">
                                                 <span>Relatórios</span>
                                             </a>    
                                         </li>
@@ -119,7 +108,7 @@
                                 <dd class="portletItem lastItem">
                                     <ul class="navTree navTreeLevel0">
                                         <li class="navTreeItem visualNoMarker section-cursos-tecnicos">
-                                            <a href="agenda.php" title="" class="state-published">
+                                            <a href="agenda.php" title="Agendar" class="state-published">
                                                 <span>Agendar</span>
                                             </a>    
                                         </li>

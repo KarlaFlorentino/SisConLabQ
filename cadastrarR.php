@@ -12,11 +12,10 @@
 	$sql->bindValue(":desc_Risco",$desc_Risco);
 	$sql->bindValue(":email",$email);
 
-	$conn = $sql->execute();
-
-	if($conn){
+	try{
+		$conn = $sql->execute();
 		echo true;
-	}else{
+	}catch(Exception $e){
 		echo false;
 	}
 ?>

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <?php include"header.php"; ?>
 
 <!-- Conteudo -->
@@ -7,20 +8,23 @@
 
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Cadastrar</button>
+    <a href="" title="Cadastrar Material"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#addMaterialModal">Cadastrar</button></a>
     <div style="margin: -5% 0% 0% 20%">    
         <div class="col-md-5">
             <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
         </div>
-        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button>
+        <a href="" title="Pesquisar Material"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
     </div>
-    
+    <br>
+
+    <span id="msg"></span>
+
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Localização</th>
-                <th scope="col">Quantidade</th>
+                <th scope="col" width="45%">Descrição</th>
+                <th scope="col" width="30%">Localização</th>
+                <th scope="col" width="15%">Quantidade</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,13 +33,10 @@
                 <td scope="row">Balão de fundo chato 500ml</td>
                 <td>Armário X</td>
                 <td>6</td>
-                <td><button type="button" class="btn btn-outline-success" data-toggle="modal"
-                        data-target="#visulMaterialModal">Visualizar</button></td>
+                <td><a href="" title="Visualizar Material"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulMaterialModal">Visualizar</button></a></td>
             </tr>
         </tbody>
     </table>
-
-    <span id="msg"></span>
 
     <div id="addMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="static"
@@ -58,7 +59,6 @@
                         </div>
                         <div class="col-md-2">
                             <select class="form-control" id="area_Mat" name="area_Mat" style="margin: 0% -60% 0% 0%">
-                                <option value="Área">Área</option>
                                 <option value="Biologia">Biologia</option>
                                 <option value="Física">Física</option>
                                 <option value="Química">Química</option>
@@ -80,8 +80,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <input type="submit" name="cadMat" id="cadMat" value="Cadastrar" class="btn btn-outline-success" style="margin-right: 78%">
-                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 77.5%">Fechar</button>
+                        <input type="submit" name="cadMat" id="cadMat" value="Cadastrar" class="btn btn-success">
                     </div>
                 </form>
             </div>
@@ -111,10 +111,9 @@
                         </div>
                         <div class="col-md-2">
                             <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
-                                <option value="Selecione">Área</option>
-                                <option value="Sim">Biologia</option>
-                                <option value="Não">Física</option>
-                                <option value="Não">Química</option>
+                                <option value="Biologia">Biologia</option>
+                                <option value="Física">Física</option>
+                                <option value="Química">Química</option>
                             </select>
                         </div>
                     </div>
@@ -133,9 +132,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-success" data-dismiss="modal"
-                            style="margin-right: 82%">Editar</button>
-                        <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 81%">Fechar</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
                     </div>
                 </form>
             </div>
