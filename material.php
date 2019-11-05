@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<?php include"header.php"; ?>
+<?php include"header.php";include_once 'conexao.php';$pdo = conectar(); ?>
 
 <!-- Conteudo -->
 
@@ -28,13 +27,24 @@
                 <th></th>
             </tr>
         </thead>
+        <?php
+            //$email = $_SESSION['user'];
+            $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
+            $result = $sql->execute();
+
+
+            
+            while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+            ?>
         <tbody>
             <tr>
-                <td scope="row">Balão de fundo chato 500ml</td>
-                <td>Armário X</td>
-                <td>6</td>
-                <td><a href="" title="Visualizar Material"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulMaterialModal">Visualizar</button></a></td>
+                <td><?php echo $exibir['desc_mat']; ?></td>
+                <td><?php echo $exibir['local_mat']; ?></td>
+                <td><?php echo $exibir['qtd_mat']; ?></td>
+                <td><a href="" title="Visualizar Material"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulMaterialModal" id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
             </tr>
+            <?php 
+             } ?>
         </tbody>
     </table>
 

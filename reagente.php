@@ -1,10 +1,14 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<?php include"header.php";
+<?php
+session_start(); 
+include"header.php";
 
 include_once 'conexao.php';
-$pdo = conectar(); ?>
+$pdo = conectar(); 
+//$x;
+//$var = "13243";
+?>
 
 
 <!-- Conteudo -->
@@ -34,34 +38,32 @@ $pdo = conectar(); ?>
         <th></th>
       </tr>
     </thead>
+    <?php
+    //$email = $_SESSION['user'];
+        $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco,qtd_reag,unidade FROM lab.reagente");
+        $result = $sql->execute();
+
+
+        
+        while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+          $pesq = $exibir['id_risco'];
+          $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
+          $result2 = $sql2->execute();
+          $risco = $sql2->fetch(PDO::FETCH_ASSOC);
+        ?>
+
     <tbody>
       <tr>
         <th scope="row"><img src="imagens/vencido.png" alt="Vencido" title="Vencido" width="15" height="15"></th>
-        <td>64-19-7</td>
-        <td>Ácido Acético</td>
-        <td>risco</td>
-        <td>2 L</td>
-        <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></a></td>
-        <td><a href="anexo.php" title="Cadastrar Anexo"><button type="button" class="btn btn-success" >Anexo</button></a></td>
+        <td><?php echo $exibir['cas']; ?></td>
+        <td><?php echo $exibir['desc_reag']; ?></td>
+        <td><?php echo $risco['desc_risco']; ?></td>
+        <td><?php echo $exibir['qtd_reag']; echo $exibir['unidade'];?></td>
+        <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal" id="<?php echo $exibir['cas']; ?>">Visualizar</button></a></td>
+        <td><a  title="Cadastrar Anexo"><button type="button" class="btn btn-success" id="<?php echo $exibir['cas']; ?>"  onclick="retornaValor(this)" name="BotaoAnexo">Anexo</button></a></td>
       </tr>
-      <tr>
-        <th scope="row"><img src="imagens/quase.png" alt="Quase vencido" title="Quase vencido" width="15" height="15"></th>
-        <td>64-19-7</td>
-        <td>Ácido Acético</td>
-        <td>risco</td>
-        <td>2 L</td>
-        <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></a></td>
-        <td><a href="anexo.php" title="Cadastrar Anexo"><button type="button" class="btn btn-success" >Anexo</button></a></td>
-      </tr>
-      <tr>
-        <th scope="row"><img src="imagens/ok.png" alt="Ok" title="Ok" width="15" height="15"></th>
-        <td>64-19-7</td>
-        <td>Ácido Acético</td>
-        <td>risco</td>
-        <td>2 L</td>
-        <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></a></td>
-        <td><a href="anexo.php" title="Cadastrar Anexo"><button type="button" class="btn btn-success" >Anexo</button></a></td>
-      </tr>
+      <?php 
+         } ?>
     </tbody>
   </table>
 
@@ -280,10 +282,14 @@ $pdo = conectar(); ?>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
-          </div>
-          </form>   
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+              <div style="width: 100%;">
+              <center>
+                <span id="msg"></span>
+              </center>
+            </div>
+              <input type="submit" name="cadRG" id="cadRG" value="Editar" class="btn btn-success">
+          </div>   
         </div>
     </div>
   </div>
@@ -340,6 +346,18 @@ $pdo = conectar(); ?>
     </div>
   </div>
 </div>
+<script>
+function retornaValor(elemento) {
+   var x = elemento.id;
+    //window.alert(x);
+  <?php 
+    $x="<script>document.write(x);</script>";
+    
+    $_SESSION['id']='$x';
+  ?>
+  window.location.href = "anexo.php";
+}
+</script>
 <?php include"scriptR.js"; ?> 
 <?php include"scriptC.js"; ?> 
 <?php include"scriptRG.js"; ?>    

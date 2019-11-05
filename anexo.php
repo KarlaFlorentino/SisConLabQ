@@ -1,6 +1,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<?php include"header.php"; ?>
+<?php session_start();
+  $id=$_SESSION['id'];
+  echo "<script>alert('$id');</script>";  
+  include"header.php"; 
+ 
+
+//$id_reagente='<script>document.write(x);</script>';
+//$id_reag= $_GET['x'];
+//echo "$id_reag";
+?>
 
 <!-- Conteudo -->
 

@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<?php include"header.php"; ?>
+<?php include"header.php";include_once 'conexao.php';$pdo = conectar(); ?>
 
 <!-- Conteudo -->
 
@@ -26,13 +26,23 @@
                 <th></th>
             </tr>
         </thead>
+        <?php
+        //$email = $_SESSION['user'];
+            $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip,qtd_equip FROM lab.equipamento");
+            $result = $sql->execute();
+
+
+            
+            while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+            ?>
         <tbody>
-            <tr>
-                <td scope="row" width="45%">pHmetro</td>
-                <td width="25%">Armário X</td>
-                <td width="15%">3</td>
-                <td><a href="" title="Visualizar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulEquipamentoModal">Visualizar</button></a></td>
+           <td><?php echo $exibir['desc_equip']; ?></td>
+                <td><?php echo $exibir['local_equip']; ?></td>
+                <td><?php echo $exibir['qtd_equip']; ?></td>
+                <td><a href="" title="Visualizar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulEquipamentoModal" id="<?php echo $exibir['id_equip']; ?>">Visualizar</button></a></td>
             </tr>
+            <?php 
+             } ?>
         </tbody>
     </table>
 
