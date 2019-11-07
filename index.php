@@ -23,7 +23,7 @@ session_start();
         objDiv.style.display = "none";
   }
 
-  function mostraTotal() {  
+  function validaSenha() {  
     var senha =  document.getElementById('senha');
     var senha2 = document.getElementById('senha2');
     var botton =  document.getElementById('cadUser');
@@ -51,7 +51,7 @@ session_start();
       <form class="insert_form_U" method="post" action="cadastrarU.php">
         <input type="text" id="email" name="email" value="analuisadass@gmail.com" placeholder="e-mail"/>
         <input type="password" id="senha" name="senha" value="senha" placeholder="senha"/>
-        <input type="password" id="senha2" value="senha" onblur="mostraTotal();"name="senha2" placeholder="confirmar senha"/>
+        <input type="password" id="senha2" value="senha" onblur="validaSenha();"name="senha2" placeholder="confirmar senha"/>
         <span id="msgSenha"></span>
         <select id="area_Pessoa" name="area_Pessoa" class="form-control">
           <option>Selecione a área</option>

@@ -27,14 +27,11 @@
                 <th></th>
             </tr>
         </thead>
-        <?php
-            //$email = $_SESSION['user'];
-            $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
-            $result = $sql->execute();
-
-
-            
-            while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+            <?php
+                //$email = $_SESSION['user'];
+                $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
+                $result = $sql->execute();
+                while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
             ?>
         <tbody>
             <tr>

@@ -1,37 +1,48 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<?php include"header.php"; ?>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<?php include"header.php";include_once 'conexao.php';$pdo = conectar(); ?>
 
 <!-- Conteudo -->
 
   <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addAgendaModal">Agendar</button>
+    <a href="" title="Agendar"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAgendaModal">Agendar</button></a>
+    <div style="margin: -5% 0% 0% 20%">    
+        <div class="col-md-5">
+            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+        </div>
+        <a href="" title="Pesquisar Agendamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
+    </div>
+    <br>
+
+    <span id="msg"></span>
+
     <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Responsável</th>
-        <th scope="col">Data</th>
-        <th scope="col">Descrição</th>
-        <th scope="col">Horário inicio</th>
-        <th scope="col">Horário fim</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td scope="row">Karla</td>
-        <td>Aula prática</td>
-        <td>13/09/2019</td>
-        <td>9:00</td>
-        <td>11:00</td>
-        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#visulUsuarioModal">
-            Visualizar
-          </button></td>
-      </tr>
-    </tbody>
+      <thead>
+        <tr>
+          <th scope="col" width="25%">Data</th>
+          <th scope="col" width="80%">Descrição</th>
+          <th></th>
+        </tr>
+      </thead>
+        <?php
+            //$email = $_SESSION['user'];
+            $sql = $pdo->prepare("SELECT id_agenda,data,desc_agenda FROM lab.agenda");
+            $result = $sql->execute();
+
+            while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+        ?>
+      <tbody>
+        <tr>
+          <td><?php echo $exibir['data']; ?></td>
+          <td><?php echo $exibir['desc_agenda']; ?></td>
+          <td><a href="" title="Visualizar Agendamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulMaterialModal" id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
+        </tr>
+        <?php 
+          } ?>
+        </tbody>
     </table>
-<span id="msg"></span>
+
     <div id="addAgendaModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
       <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 150%">
@@ -44,11 +55,11 @@
           <form class="form-horizontal" method="post" id="insert_form_A">
             <p></p>
             <div class="form-group">
-              <label class="col-md-4 control-label" for="idTitulo">Data: </label>  
-              <div class="col-md-5">
-                <input type="date" id="data" name="data "class="form-control input-md" style="text-align: center;">    
-              </div>
+            <label class="col-md-4 control-label" for="idTitulo">Data: </label>  
+            <div class="col-md-5">
+              <input id="data" name="data" type="date" class="form-control input-md" style="text-align: center;">    
             </div>
+          </div>
             <div class="form-group">
               <label class="col-md-4 control-label" for="idTitulo">Descrição: </label>  
               <div class="col-md-5">
@@ -58,18 +69,19 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="idEdicao">Horário Início</label>  
               <div class="col-md-5">
-                <input id="horaInicio" name="horaInicio" type="text" placeholder="Horário Início" class="form-control input-md" required="" style="text-align: center;">
+                <input id="horaInicio" name="horaInicio" type="time" placeholder="Horário Início" class="form-control input-md" required="" style="text-align: center;">
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-4 control-label" for="idEdicao">Horário Fim</label>  
               <div class="col-md-5">
-                <input id="horaFim" name="horaFim" type="text" placeholder="Horário fim" class="form-control input-md" required="" style="text-align: center;">
+                <input id="horaFim" name="horaFim" type="time" placeholder="Horário fim" class="form-control input-md" required="" style="text-align: center;">
               </div>
             </div>
             <div class="modal-footer">
-                <input type="submit" name="cadMat" id="cadMat" value="Cadastrar" class="btn btn-outline-success" style="margin-right: 78%">
-                <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 78%">Fechar</button>
+                <input type="submit" name="cadA" id="cadA" value="Cadastrar" class="btn btn-success">
+                
             </div>
           </form>
         </div>
@@ -119,5 +131,6 @@
         </div>
       </div>
     </div>
+  </div>
 <?php include"scriptA.js"; ?>  
 <?php include"footer.php"; ?>

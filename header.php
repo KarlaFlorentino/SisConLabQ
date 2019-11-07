@@ -87,7 +87,7 @@
                                 <dd class="portletItem lastItem">
                                     <ul class="navTree navTreeLevel0">
                                         <li class="navTreeItem visualNoMarker section-cursos-tecnicos">
-                                            <a href="" title="Relatórios" class="state-published">
+                                            <a href="relatorio.php" title="Relatórios" class="state-published">
                                                 <span>Relatórios</span>
                                             </a>    
                                         </li>

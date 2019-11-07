@@ -572,11 +572,7 @@ div.riform #riyearlyoptions input {
 margin: 0;
 }
 div.riform #riweeklyweekdays .riweeklyweekday input {
-display:block;
 margin: 8px auto 0;
-}
-div.riform #riweeklyweekdays .riweeklyweekday label {
-display:block;
 }
 div.riform #riweeklyweekdays .riweeklyweekday {
 margin-right: 15px;
@@ -744,7 +740,6 @@ box-shadow: 0.5em 0.5em 0.4em black;
 min-width:4.4em;
 }
 .vevent span.cal_wkday {
-display:block;
 font-size:2.3em;
 font-weight:bold;
 border-bottom:2px solid black;
@@ -782,7 +777,6 @@ list-style-type: none;
 .vevent .horizontal.metadata .category span:after { content: ","; }
 .vevent .horizontal.metadata .category span:last-child:after { content: ""; }
 .vevent .timezone {
-display:block;
 margin-top:0.5em;
 padding:0.2em 0;
 background-color:#ffe;
@@ -946,7 +940,6 @@ z-index: 10;
 }
 .pae_calendar_tooltip a {
 color:black;
-display:block;
 width:100%;
 }
 .pae_calendar_tooltip a:hover { color:blue; }

@@ -6,7 +6,6 @@
 			var dados = $("#insert_form_E").serialize();
 
             $.post("cadastrarE.php", dados, function (retorna){
-            	alert(retorna);
 				if(retorna){
 					//Alerta sucesso
 					$("#msg").html('<div class="alert alert-success" role="alert">Equipamento cadastrado com sucesso!</div>');						

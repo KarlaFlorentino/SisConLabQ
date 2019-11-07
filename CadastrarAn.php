@@ -1,11 +1,14 @@
 <?php
-session_start();
-	$id=$_SESSION['id'];
+
+	$id=$_POST['id'];
 	include_once 'conexao.php';
 	$pdo = conectar();
 	
-	echo "<script>alert('$id');</script>";
-
+//echo "<script>alert('$id');</script>";
+$name;
+$tmp_name;
+$error;
+$location;
 if ($_FILES["anexo"]["name"] != "") {
 
 	$name = $_FILES["anexo"]["name"];
@@ -16,21 +19,24 @@ if ($_FILES["anexo"]["name"] != "") {
 
 	$location = 'upload/';
 
-	if  (move_uploaded_file($tmp_name, $location.$name)){
-	    echo 'Uploaded';    
-	}
-
+	move_uploaded_file($tmp_name, $location.$name);
+	  }
+	
 	$anexo = $location."".$name;
-	$sql = $pdo->prepare("INSERT INTO lab.reagente(anexo)  VALUES (:anexo) WHERE id_reag='$id'");
+	//echo "<script>alert('$anexo');</script>";
+
+	$sql = $pdo->prepare("UPDATE lab.reagente SET anexo=:anexo WHERE cas='$id'");
 
 	$sql->bindValue(":anexo",$anexo);
-	
-}
+	//var_dump($sql);
+
 	try{
 		$conn = $sql->execute();
-		echo true;
+		//echo True;
+		header("location:reagente.php");
 	}catch(Exception $e){
-		echo false;
+		//echo False;
+		header("location:reagente.php");
 	}
 	
 ?>

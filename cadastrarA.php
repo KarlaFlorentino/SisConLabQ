@@ -9,8 +9,6 @@
 	$horaInicio = filter_input(INPUT_POST, 'horaInicio', FILTER_SANITIZE_STRING);
 	$horaFim = filter_input(INPUT_POST, 'horaFim', FILTER_SANITIZE_STRING);
 
-	echo "<script>alert($data);</script>";
-
 	$sql = $pdo->prepare("INSERT INTO lab.agenda(data, desc_Agenda, horaInicio, horaFim)  VALUES (:data, :desc_Agenda, :horaInicio, :horaFim)");
 
 	$sql->bindValue(":data",$data);
@@ -18,7 +16,14 @@
 	$sql->bindValue(":horaInicio",$horaInicio);
 	$sql->bindValue(":horaFim",$horaFim);
 
-	$conn = $sql->execute();
+	try{
+		$conn = $sql->execute();
+		echo true;
+	}catch(Exception $e){
+		echo false;
+	}
+
+	/*$conn = $sql->execute();
 
 	if($conn){
 		$sql = $pdo->prepare("SELECT id_Agenda WHERE data = :data AND horaInicio = :horaInicio");
@@ -37,5 +42,5 @@
 		}
 	}else{
 		echo false;
-	}
+	}*/
 ?>

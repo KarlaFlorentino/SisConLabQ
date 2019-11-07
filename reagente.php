@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <?php
-session_start(); 
+
 include"header.php";
 
 include_once 'conexao.php';
@@ -24,7 +24,7 @@ $pdo = conectar();
   </div>
   <br>
 
-  <span id="msg2"></span>
+  <span id="msg"></span>
 
   <table class="table table-hover">
     <thead>
@@ -40,7 +40,8 @@ $pdo = conectar();
     </thead>
     <?php
     //$email = $_SESSION['user'];
-        $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco,qtd_reag,unidade FROM lab.reagente");
+        $dataAtual = date("Y-m-d");
+        $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco,qtd_reag,unidade,validade FROM lab.reagente");
         $result = $sql->execute();
 
 
@@ -54,7 +55,22 @@ $pdo = conectar();
 
     <tbody>
       <tr>
-        <th scope="row"><img src="imagens/vencido.png" alt="Vencido" title="Vencido" width="15" height="15"></th>
+        <?php 
+          $time_validade = strtotime($exibir['validade']);
+          $time_atual = strtotime($dataAtual);
+          // Calcula a diferença de segundos entre as duas datas:
+          $diferenca = $time_validade - $time_atual; // 19522800 segundos
+          // Calcula a diferença de dias
+          $dias = (int)floor( $diferenca / (60 * 60 * 24)); // 225 dias
+
+          if ($dias < 0) {
+            echo '<th scope="row"><img src="imagens/vencido.png" title="Vencido" width="15" height="15"></th>';
+          }elseif ($dias > 10) {
+            echo '<th scope="row"><img src="imagens/ok.png" title="OK" width="15" height="15"></th>';
+          }else{
+            echo '<th scope="row"><img src="imagens/quase.png" title="Quase Vencido" width="15" height="15"></th>';
+          }
+         ?>
         <td><?php echo $exibir['cas']; ?></td>
         <td><?php echo $exibir['desc_reag']; ?></td>
         <td><?php echo $risco['desc_risco']; ?></td>
@@ -168,12 +184,7 @@ $pdo = conectar();
             </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-              <div style="width: 100%;">
-              <center>
-                <span id="msg"></span>
-              </center>
-            </div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal"  style="margin-right: 77.5%">Fechar</button>
               <input type="submit" name="cadRG" id="cadRG" value="Cadastrar" class="btn btn-success">
           </div>
           </form>
@@ -282,15 +293,11 @@ $pdo = conectar();
             </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-              <div style="width: 100%;">
-              <center>
-                <span id="msg"></span>
-              </center>
-            </div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 77.5%>Fechar</button>
               <input type="submit" name="cadRG" id="cadRG" value="Editar" class="btn btn-success">
           </div>   
-        </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -306,13 +313,18 @@ $pdo = conectar();
          <form class="form-horizontal" method="post" id="insert_form_C" enctype="multipart/form-data">
           <p></p>
             <div class="form-group">
-              <label class="col-md-4 control-label" for="desc_Classe">Descrição</label>  
+              <label class="col-md-4 control-label" for="desc_Classe">Classe</label>  
               <div class="col-md-5">
-                <input id="desc_Classe" name="desc_Classe" type="text" placeholder="Classe" class="form-control input-md" required="" style="text-align: center;">
+                <input id="desc_Classe" name="desc_Classe" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 66%">Fechar</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+              <div style="width: 100%;">
+              <center>
+                <span id="msg2"></span>
+              </center>
+            </div>
               <input type="submit" name="cadC" id="cadC" value="Cadastrar" class="btn btn-success">
             </div>
         </form>                   
@@ -332,13 +344,18 @@ $pdo = conectar();
          <form class="form-horizontal" method="post" id="insert_form_R" enctype="multipart/form-data">
           <p></p>
             <div class="form-group">
-              <label class="col-md-4 control-label" for="desc_Risco">Descrição</label>  
+              <label class="col-md-4 control-label" for="desc_Risco">Risco</label>  
               <div class="col-md-5">
-                <input id="desc_Risco" name="desc_Risco" type="text" placeholder="Risco" class="form-control input-md" required="" style="text-align: center;">
+                <input id="desc_Risco" name="desc_Risco" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 66%">Fechar</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+              <div style="width: 100%;">
+              <center>
+                <span id="msg3"></span>
+              </center>
+            </div>
               <input type="submit" name="cadR" id="cadR" value="Cadastrar" class="btn btn-success">
             </div>
         </form>                   
@@ -348,14 +365,8 @@ $pdo = conectar();
 </div>
 <script>
 function retornaValor(elemento) {
-   var x = elemento.id;
-    //window.alert(x);
-  <?php 
-    $x="<script>document.write(x);</script>";
-    
-    $_SESSION['id']='$x';
-  ?>
-  window.location.href = "anexo.php";
+  var x = elemento.id;
+  window.location.href = "anexo.php?id="+x;
 }
 </script>
 <?php include"scriptR.js"; ?> 
