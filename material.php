@@ -1,5 +1,7 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 <?php include"header.php";include_once 'conexao.php';$pdo = conectar(); ?>
 
 <!-- Conteudo -->
@@ -7,12 +9,15 @@
 
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
-    <a href="" title="Cadastrar Material"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#addMaterialModal">Cadastrar</button></a>
-    <div style="margin: -5% 0% 0% 20%">    
+    <a href="" title="Cadastrar Material"><button type="button" class="btn btn-success" data-toggle="modal"
+            data-target="#addMaterialModal">Cadastrar</button></a>
+    <div style="margin: -5% 0% 0% 20%">
         <div class="col-md-5">
-            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md"
+                required="" style="text-align: center;">
         </div>
-        <a href="" title="Pesquisar Material"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
+        <a href="" title="Pesquisar Material"><button type="button" class="btn btn-secundary" data-toggle="modal"
+                data-target="#addMaterialModal">Pesquisar</button></a>
     </div>
     <br>
 
@@ -27,7 +32,7 @@
                 <th></th>
             </tr>
         </thead>
-            <?php
+        <?php
                 //$email = $_SESSION['user'];
                 $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
                 $result = $sql->execute();
@@ -38,7 +43,9 @@
                 <td><?php echo $exibir['desc_mat']; ?></td>
                 <td><?php echo $exibir['local_mat']; ?></td>
                 <td><?php echo $exibir['qtd_mat']; ?></td>
-                <td><a href="" title="Visualizar Material"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulMaterialModal" id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
+                <td><a href="" title="Visualizar Material"><button type="button"
+                            class="btn btn-outline-primary view_data"
+                            id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
             </tr>
             <?php 
              } ?>
@@ -87,7 +94,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 77.5%">Fechar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                            style="margin-right: 77.5%">Fechar</button>
                         <input type="submit" name="cadMat" id="cadMat" value="Cadastrar" class="btn btn-success">
                     </div>
                 </form>
@@ -97,55 +105,46 @@
 
 
     <div id="visulMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" data-backdrop="static"
-        style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;" onclose="AtualizarPai()">
+        aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 150%">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="visulMaterialModalLabel">Detalhes do Material</h4>
+                    <h5 class="modal-title" id="visulMaterialModalLabel">Detalhes do Material</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <form class="form-horizontal" action="CadastrarL.php" method="post" enctype="multipart/form-data">
-                    <p></p>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>
-                        <div class="col-md-5">
-                            <input id="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md"
-                                required="" value="Balão de fundo chato 500ml" style="text-align: center;">
-                        </div>
-                        <div class="col-md-2">
-                            <select class="form-control" id="area_Mat" style="margin: 0% -60% 0% 0%">
-                                <option value="Biologia">Biologia</option>
-                                <option value="Física">Física</option>
-                                <option value="Química">Química</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="local_mat">Localização</label>
-                        <div class="col-md-5">
-                            <input id="local_mat" type="text" placeholder="Localização" class="form-control input-md"
-                                required="" value="Armário X" style="text-align: center;">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="qtd_Mat">Quantidade</label>
-                        <div class="col-md-5">
-                            <input id="qtd_Mat" type="text" placeholder="Quantidade" class="form-control input-md"
-                                required="" value="6" style="text-align: center;">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 81%">Fechar</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
-                    </div>
+                <form action="" method="post" enctype="multipart/form-data" >
+                <div class="modal-body">
+                    <span id="visul_material"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Fechar</button>
+                </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $(document).on('click', '.view_data', function() {
+        var id_mat = $(this).attr("id");
+        //alert(user_id);
+        //Verificar se há valor na variável "user_id".
+        if (id_mat !== '') {
+            var dados = {
+                id_mat: id_mat
+            };
+            $.post('visualizarM.php', dados, function(retorna) {
+                //Carregar o conteúdo para o usuário
+                $("#visul_material").html(retorna);
+                $('#visulMaterialModal').modal('show');
+            });
+        }
+    });
+}); //não fechou
+</script>
 <?php include"scriptM.js"; ?>
 <?php include"footer.php"; ?>

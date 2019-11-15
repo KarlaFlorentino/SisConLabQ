@@ -23,8 +23,12 @@
 
 				setTimeout(function() {
 					$("#msg").fadeOut().empty();
-				}, 5000);		
+				}, 5000);
+
 			});
+			$.post("tableEquipamentos.php",1,function(valor) {
+                        $("#tabela").html(valor);
+                    });
 		});
 	});
 </script>

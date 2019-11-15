@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <?php include"header.php";include_once 'conexao.php';$pdo = conectar(); ?>
 
 <!-- Conteudo -->
@@ -16,7 +16,7 @@
     <br>
 
     <span id="msg"></span>
-    
+    <div id="tabela">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -45,6 +45,7 @@
              } ?>
         </tbody>
     </table>
+    </div>
 
     <div id="addEquipamentoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
         <div class="modal-dialog" role="document">
@@ -138,5 +139,11 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    setTimeout(function() {
+            $("#div").load("equipamento.php #tabela");
+    }, 5000);
+</script>
 <?php include"scriptE.js"; ?>    
 <?php include"footer.php"; ?>
