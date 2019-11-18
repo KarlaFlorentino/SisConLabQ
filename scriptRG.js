@@ -7,6 +7,9 @@ $(document).ready(function(){
       $.post("cadastrarRG.php", dados, function (retorna){
 
         if(retorna){
+          $.post("tableReagentes.php",1,function(valor) {
+            $("#tabela").html(valor);
+          });
           //Alerta sucesso
           $("#msg").html('<div class="alert alert-success" role="alert">Reagente cadastrado com sucesso!</div>');
                 

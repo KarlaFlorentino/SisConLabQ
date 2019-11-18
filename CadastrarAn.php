@@ -1,25 +1,25 @@
 <?php
-
 	$id=$_POST['id'];
+	session_start();
 	include_once 'conexao.php';
 	$pdo = conectar();
 	
-//echo "<script>alert('$id');</script>";
-$name;
-$tmp_name;
-$error;
-$location;
-if ($_FILES["anexo"]["name"] != "") {
+	//echo "<script>alert('$id');</script>";
+	$name;
+	$tmp_name;
+	$error;
+	$location;
 
-	$name = $_FILES["anexo"]["name"];
+	if ($_FILES["anexo"]["name"] != "") {
+		$name = $_FILES["anexo"]["name"];
 
-	$tmp_name = $_FILES['anexo']['tmp_name'];
+		$tmp_name = $_FILES['anexo']['tmp_name'];
 
-	$error = $_FILES['anexo']['error'];
+		$error = $_FILES['anexo']['error'];
 
-	$location = 'upload/';
+		$location = 'upload/';
 
-	move_uploaded_file($tmp_name, $location.$name);
+		move_uploaded_file($tmp_name, $location.$name);
 	  }
 	
 	$anexo = $location."".$name;
@@ -32,11 +32,11 @@ if ($_FILES["anexo"]["name"] != "") {
 
 	try{
 		$conn = $sql->execute();
-		//echo True;
-		header("location:reagente.php");
+		$_SESSION['erro'] = "OK";
+		header("location:anexo.php?id=$id");
 	}catch(Exception $e){
-		//echo False;
-		header("location:reagente.php");
+		$_SESSION['erro'] = "ERRO";
+		header("location:anexo.php?id=$id");
 	}
 	
 ?>

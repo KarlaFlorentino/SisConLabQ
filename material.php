@@ -22,36 +22,36 @@
     <br>
 
     <span id="msg"></span>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col" width="45%">Descrição</th>
-                <th scope="col" width="30%">Localização</th>
-                <th scope="col" width="15%">Quantidade</th>
-                <th></th>
-            </tr>
-        </thead>
-        <?php
-                //$email = $_SESSION['user'];
-                $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
-                $result = $sql->execute();
-                while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-            ?>
-        <tbody>
-            <tr>
-                <td><?php echo $exibir['desc_mat']; ?></td>
-                <td><?php echo $exibir['local_mat']; ?></td>
-                <td><?php echo $exibir['qtd_mat']; ?></td>
-                <td><a href="" title="Visualizar Material"><button type="button"
-                            class="btn btn-outline-primary view_data"
-                            id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
-            </tr>
-            <?php 
-             } ?>
-        </tbody>
-    </table>
-
+    <div id="tabela">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" width="45%">Descrição</th>
+                    <th scope="col" width="30%">Localização</th>
+                    <th scope="col" width="15%">Quantidade</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <?php
+                    //$email = $_SESSION['user'];
+                    $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
+                    $result = $sql->execute();
+                    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+                ?>
+            <tbody>
+                <tr>
+                    <td><?php echo $exibir['desc_mat']; ?></td>
+                    <td><?php echo $exibir['local_mat']; ?></td>
+                    <td><?php echo $exibir['qtd_mat']; ?></td>
+                    <td><a href="" title="Visualizar Material"><button type="button"
+                                class="btn btn-outline-primary view_data"
+                                id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
+                </tr>
+                <?php 
+                 } ?>
+            </tbody>
+        </table>
+    </div>
     <div id="addMaterialModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="static"
         style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">

@@ -2,7 +2,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <?php 
   $id_reag=$_GET['id'];
-  include"header.php"; 
+  session_start();
+  include"header.php"; include_once 'conexao.php'; $pdo = conectar();
 ?>
 
 <!-- Conteudo -->
@@ -15,10 +16,10 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="idTitulo">Anexo: </label>  
             <div class="col-md-7">
-              <input  name="id" id="<?php echo $id_reag;?>" value= "<?php echo $id_reag;?>">
+              <input  name="id" type="hidden" id="<?php echo $id_reag;?>" value= "<?php echo $id_reag;?>">
               <input  type="file" id="anexo" name="anexo" placeholder="Anexo" class="form-control input-md">    
             </div>
-              <a href="" title="Cadastrar Anexo"><input style="margin: -6% 0% 0% 92%" type="submit" class="btn btn-success" value="Cadatrar" ></a>
+              <a href="" title="Cadastrar Anexo"><input style="margin: -6% 0% 0% 92%" type="submit" class="btn btn-success" value="Cadastrar" ></a>
           </div>
         </form>
     </div>
@@ -31,7 +32,29 @@
     </div>
     <a href="" title="Pesquisar Anexo"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
   </div>
-<br>
+  <p><br><br></p>
+  <?php
+        //session_destroy();
+        //$_SESSION['erro'] = true;
+        if (isset($_SESSION['erro'])) {
+          if ($_SESSION['erro']=="ERRO") {
+        ?>
+          <div id="erro" class="alert alert-warning" role="alert">Falha no cadastro do Anexo!</div>
+        <?php
+          }
+          else{
+        ?>
+          <div id="erro" class="alert alert-success" role="alert">Anexo cadastrado com sucesso!</div>
+        <?php
+        }
+      session_unset($_SESSION['erro']);
+      }
+  ?>
+  <script type="text/javascript">
+        setTimeout(function() {
+            $("#erro").fadeOut().empty();
+        }, 6000);
+  </script>
 <table class="table table-hover">
     <thead>
       <tr>
@@ -39,14 +62,22 @@
         <th></th>
       </tr>
     </thead>
+    <?php
+    //$email = $_SESSION['user'];
+        $sql = $pdo->prepare("SELECT anexo FROM lab.reagente WHERE cas = '$id_reag'");
+        $result = $sql->execute();
+
+        while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+        ?>
     <tbody>
       <tr>
-        <th scope="row">anexo.pdf</th>
+        <th scope="row"><?php echo $exibir['anexo']; ?></th>
         <td><a href="" title="Vizualizar Anexo"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal">Visualizar</button></a></td>
       </tr>
     </tbody>
+    <?php 
+     } ?>
   </table>
-
 </div>
 
 <?php include"footer.php"; ?>

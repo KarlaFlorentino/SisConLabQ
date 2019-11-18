@@ -1,0 +1,16 @@
+Visual 2012 (x86) (x64)
+Visual 2015 (x86) (x64)
+WampServer
+Java 8 Update 201 (x64)
+Geogebra
+MySQL Workbench 8.0 CE
+Anki
+Xbox Live
+Print 3D
+Microsoft OneDrive
+Dolby Digital Plus Advanced Audio
+Backup and Sync from Google
+Dia
+Conexant HD audio
+Malwarebytes
+Dev c++

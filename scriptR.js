@@ -6,6 +6,9 @@
       var dados = $("#insert_form_R").serialize();
       $.post("cadastrarR.php", dados, function (retorna){
         if(retorna){
+          $.post("selectRiscos.php",1,function(valor) {
+            $("#selRiscos").html(valor);
+          });
           //Alerta sucesso
           $("#msg3").html('<div class="alert alert-success" role="alert">Cadastrado com sucesso!</div>');
                 

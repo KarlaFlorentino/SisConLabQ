@@ -9,39 +9,41 @@
     <a href="" title="Agendar"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAgendaModal">Agendar</button></a>
     <div style="margin: -5% 0% 0% 20%">    
         <div class="col-md-5">
-            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+            <input id="desc_Agenda" name="desc_Agenda" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
         </div>
-        <a href="" title="Pesquisar Agendamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
+        <a href="" title="Pesquisar Agendamento"><button type="button" class="btn btn-secundary">Pesquisar</button></a>
     </div>
     <br>
 
     <span id="msg"></span>
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col" width="25%">Data</th>
-          <th scope="col" width="80%">Descrição</th>
-          <th></th>
-        </tr>
-      </thead>
-        <?php
-            //$email = $_SESSION['user'];
-            $sql = $pdo->prepare("SELECT id_agenda,data,desc_agenda FROM lab.agenda");
-            $result = $sql->execute();
+    <div id="tabela">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" width="25%">Data</th>
+            <th scope="col" width="80%">Descrição</th>
+            <th></th>
+          </tr>
+        </thead>
+          <?php
+              //$email = $_SESSION['user'];
+              $sql = $pdo->prepare("SELECT id_agenda,data,desc_agenda FROM lab.agenda");
+              $result = $sql->execute();
 
-            while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-        ?>
-      <tbody>
-        <tr>
-          <td><?php echo $exibir['data']; ?></td>
-          <td><?php echo $exibir['desc_agenda']; ?></td>
-          <td><a href="" title="Visualizar Agendamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulMaterialModal" id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
-        </tr>
-        <?php 
-          } ?>
-        </tbody>
-    </table>
+              while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+          ?>
+        <tbody>
+          <tr>
+            <td><?php echo $exibir['data']; ?></td>
+            <td><?php echo $exibir['desc_agenda']; ?></td>
+            <td><a href="" title="Visualizar Agendamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulAgendaModal">Visualizar</button></a></td>
+          </tr>
+          <?php 
+            } ?>
+          </tbody>
+      </table>
+    </div>
 
     <div id="addAgendaModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
       <div class="modal-dialog" role="document">

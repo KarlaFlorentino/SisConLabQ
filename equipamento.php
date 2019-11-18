@@ -17,34 +17,34 @@
 
     <span id="msg"></span>
     <div id="tabela">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col" width="45%">Descrição</th>
-                <th scope="col" width="30%">Localização</th>
-                <th scope="col" width="15%">Quantidade</th>
-                <th></th>
-            </tr>
-        </thead>
-        <?php
-        //$email = $_SESSION['user'];
-            $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip,qtd_equip FROM lab.equipamento");
-            $result = $sql->execute();
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" width="45%">Descrição</th>
+                    <th scope="col" width="30%">Localização</th>
+                    <th scope="col" width="15%">Quantidade</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <?php
+            //$email = $_SESSION['user'];
+                $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip,qtd_equip FROM lab.equipamento");
+                $result = $sql->execute();
 
 
-            
-            while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-            ?>
-        <tbody>
-           <td><?php echo $exibir['desc_equip']; ?></td>
-                <td><?php echo $exibir['local_equip']; ?></td>
-                <td><?php echo $exibir['qtd_equip']; ?></td>
-                <td><a href="" title="Visualizar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulEquipamentoModal" id="<?php echo $exibir['id_equip']; ?>">Visualizar</button></a></td>
-            </tr>
-            <?php 
-             } ?>
-        </tbody>
-    </table>
+                
+                while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+                ?>
+            <tbody>
+               <td><?php echo $exibir['desc_equip']; ?></td>
+                    <td><?php echo $exibir['local_equip']; ?></td>
+                    <td><?php echo $exibir['qtd_equip']; ?></td>
+                    <td><a href="" title="Visualizar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulEquipamentoModal" id="<?php echo $exibir['id_equip']; ?>">Visualizar</button></a></td>
+                </tr>
+                <?php 
+                 } ?>
+            </tbody>
+        </table>
     </div>
 
     <div id="addEquipamentoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">

@@ -85,14 +85,14 @@ session_start();
           if ($_SESSION['erro']=="ERRO") {
         ?>
           <div style="color: red; width: 100%, text-align: center;" id="erro">
-            <strong>Erro </strong> ao inserir o registro.
+            <strong>Erro </strong> ao cadastrar Usuário.
           </div>
         <?php
           }
           else{
         ?>
           <div style="color: green; width: 100%, text-align: center;" id="erro">
-            <strong>Sucesso</strong> ao cadastrar. 
+            <strong>Sucesso</strong> ao cadastrar Usuário. 
           </div>
         <?php
         }

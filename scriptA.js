@@ -7,6 +7,9 @@
 
             $.post("cadastrarA.php", dados, function (retorna){
 				if(retorna){
+					$.post("tableAgendamentos.php",1,function(valor) {
+		                $("#tabela").html(valor);
+		            });
 					//Alerta sucesso
 					$("#msg").html('<div class="alert alert-success" role="alert">Agendamento realizado com sucesso!</div>');						
 				}else{

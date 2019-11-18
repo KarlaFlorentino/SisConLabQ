@@ -7,6 +7,9 @@
 
             $.post("cadastrarM.php", dados, function (retorna){
 				if(retorna){
+					$.post("tableMateriais.php",1,function(valor) {
+		                $("#tabela").html(valor);
+		            });
 					//Alerta sucesso
 					$("#msg").html('<div class="alert alert-success" role="alert">Material cadastrado com sucesso!</div>');
 

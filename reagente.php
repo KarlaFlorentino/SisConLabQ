@@ -26,62 +26,64 @@ $pdo = conectar();
 
   <span id="msg"></span>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th></th>
-        <th scope="col" width="10%">CAS</th>
-        <th scope="col" width="45%">Descrição</th>
-        <th scope="col" width="5%">Risco</th>
-        <th scope="col" width="5%">Quantidade</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <?php
-    //$email = $_SESSION['user'];
-        $dataAtual = date("Y-m-d");
-        $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco,qtd_reag,unidade,validade FROM lab.reagente");
-        $result = $sql->execute();
+  <div id="tabela">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th scope="col" width="10%">CAS</th>
+          <th scope="col" width="45%">Descrição</th>
+          <th scope="col" width="5%">Risco</th>
+          <th scope="col" width="5%">Quantidade</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <?php
+      //$email = $_SESSION['user'];
+          $dataAtual = date("Y-m-d");
+          $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco,qtd_reag,unidade,validade FROM lab.reagente");
+          $result = $sql->execute();
 
 
-        
-        while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-          $pesq = $exibir['id_risco'];
-          $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
-          $result2 = $sql2->execute();
-          $risco = $sql2->fetch(PDO::FETCH_ASSOC);
-        ?>
+          
+          while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+            $pesq = $exibir['id_risco'];
+            $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
+            $result2 = $sql2->execute();
+            $risco = $sql2->fetch(PDO::FETCH_ASSOC);
+          ?>
 
-    <tbody>
-      <tr>
+      <tbody>
+        <tr>
+          <?php 
+            $time_validade = strtotime($exibir['validade']);
+            $time_atual = strtotime($dataAtual);
+            // Calcula a diferença de segundos entre as duas datas:
+            $diferenca = $time_validade - $time_atual; // 19522800 segundos
+            // Calcula a diferença de dias
+            $dias = (int)floor( $diferenca / (60 * 60 * 24)); // 225 dias
+
+            if ($dias < 0) {
+              echo '<th scope="row"><img src="imagens/vencido.png" title="Vencido" width="15" height="15"></th>';
+            }elseif ($dias > 10) {
+              echo '<th scope="row"><img src="imagens/ok.png" title="OK" width="15" height="15"></th>';
+            }else{
+              echo '<th scope="row"><img src="imagens/quase.png" title="Quase Vencido" width="15" height="15"></th>';
+            }
+           ?>
+          <td><?php echo $exibir['cas']; ?></td>
+          <td><?php echo $exibir['desc_reag']; ?></td>
+          <td><?php echo $risco['desc_risco']; ?></td>
+          <td><?php echo $exibir['qtd_reag']; echo $exibir['unidade'];?></td>
+          <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal" id="<?php echo $exibir['cas']; ?>">Visualizar</button></a></td>
+          <td><a  title="Cadastrar Anexo"><button type="button" class="btn btn-success" id="<?php echo $exibir['cas']; ?>"  onclick="retornaValor(this)" name="BotaoAnexo">Anexo</button></a></td>
+        </tr>
         <?php 
-          $time_validade = strtotime($exibir['validade']);
-          $time_atual = strtotime($dataAtual);
-          // Calcula a diferença de segundos entre as duas datas:
-          $diferenca = $time_validade - $time_atual; // 19522800 segundos
-          // Calcula a diferença de dias
-          $dias = (int)floor( $diferenca / (60 * 60 * 24)); // 225 dias
-
-          if ($dias < 0) {
-            echo '<th scope="row"><img src="imagens/vencido.png" title="Vencido" width="15" height="15"></th>';
-          }elseif ($dias > 10) {
-            echo '<th scope="row"><img src="imagens/ok.png" title="OK" width="15" height="15"></th>';
-          }else{
-            echo '<th scope="row"><img src="imagens/quase.png" title="Quase Vencido" width="15" height="15"></th>';
-          }
-         ?>
-        <td><?php echo $exibir['cas']; ?></td>
-        <td><?php echo $exibir['desc_reag']; ?></td>
-        <td><?php echo $risco['desc_risco']; ?></td>
-        <td><?php echo $exibir['qtd_reag']; echo $exibir['unidade'];?></td>
-        <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal" id="<?php echo $exibir['cas']; ?>">Visualizar</button></a></td>
-        <td><a  title="Cadastrar Anexo"><button type="button" class="btn btn-success" id="<?php echo $exibir['cas']; ?>"  onclick="retornaValor(this)" name="BotaoAnexo">Anexo</button></a></td>
-      </tr>
-      <?php 
-         } ?>
-    </tbody>
-  </table>
+           } ?>
+      </tbody>
+    </table>
+  </div>
 
   <div id="addReagenteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" style="position: fixed; height: 200%; margin-top: -25%; margin-left: -7%;">
   <!-- style="position: fixed; height: 100; margin-top: -15.2%; margin-left: -6%; --> 
@@ -131,7 +133,7 @@ $pdo = conectar();
           </div>
           <div class="form-group">
             <label class="col-md-4 control-label" for="classe">Classe: </label>  
-            <div class="col-md-5">
+            <div class="col-md-5" id="selClasses">
             <select id="classe" name="classe" class="form-control">
             	<?php
               //$email = $_SESSION['user'];
@@ -150,7 +152,7 @@ $pdo = conectar();
           </div>
           <div class="form-group">
             <label class="col-md-4 control-label" for="risco">Risco</label>
-            <div class="col-md-3">
+            <div class="col-md-3" id="selRiscos">
               <select id="risco" name="risco" class="form-control">
                 <?php
           		    $sql = $pdo->prepare("SELECT id_risco,desc_risco FROM lab.risco");

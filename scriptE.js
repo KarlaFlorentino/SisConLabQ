@@ -7,6 +7,9 @@
 
             $.post("cadastrarE.php", dados, function (retorna){
 				if(retorna){
+					$.post("tableEquipamentos.php",1,function(valor) {
+		                $("#tabela").html(valor);
+		            });
 					//Alerta sucesso
 					$("#msg").html('<div class="alert alert-success" role="alert">Equipamento cadastrado com sucesso!</div>');						
 
@@ -26,9 +29,6 @@
 				}, 5000);
 
 			});
-			$.post("tableEquipamentos.php",1,function(valor) {
-                        $("#tabela").html(valor);
-                    });
 		});
 	});
 </script>

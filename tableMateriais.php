@@ -1,7 +1,7 @@
 <?php
     include_once 'conexao.php';
     $pdo = conectar();
-    $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip,qtd_equip FROM lab.equipamento");
+    $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
     $result = $sql->execute();
     $tabela="<table class='table table-hover'>
         <thead>
@@ -15,10 +15,10 @@
         <tbody>";
 
          while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-                $tabela .="<td>".$exibir['desc_equip']."</td>";
-                $tabela .="<td>".$exibir['local_equip']."</td>";
-                $tabela .="<td>".$exibir['qtd_equip']."</td>";
-                $tabela .="<td><a href='' title='Visualizar Equipamento'><button type='button' class='btn btn-secundary' data-toggle='modal' data-target='#visulEquipamentoModal' id='".$exibir['id_equip']."'>Visualizar</button></a></td>";
+                $tabela .="<td>".$exibir['desc_mat']."</td>";
+                $tabela .="<td>".$exibir['local_mat']."</td>";
+                $tabela .="<td>".$exibir['qtd_mat']."</td>";
+                $tabela .="<td><a href='' title='Visualizar Material'><button type='button' class='btn btn-secundary' data-toggle='modal' data-target='#visulMaterialModal' id='".$exibir['id_mat']."'>Visualizar</button></a></td>";
                 $tabela .="</tr>";
             
              } 
