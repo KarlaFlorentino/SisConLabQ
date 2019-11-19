@@ -42,22 +42,29 @@ $pdo = conectar();
       <?php
       //$email = $_SESSION['user'];
           $dataAtual = date("Y-m-d");
-          $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco,qtd_reag,unidade,validade FROM lab.reagente");
-          $result = $sql->execute();
-
+          $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco FROM lab.reagente");
+          $result = $sql->execute();    
 
           
           while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+          	$cas = $exibir['cas'];
             $pesq = $exibir['id_risco'];
             $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
             $result2 = $sql2->execute();
             $risco = $sql2->fetch(PDO::FETCH_ASSOC);
+
+           
+
+            $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade FROM lab.EstoqueReag where cas = '$cas'" );
+          	$result3 = $sql3->execute();
+          	$resultReag =  $sql3->fetch(PDO::FETCH_ASSOC);
+
           ?>
 
       <tbody>
         <tr>
           <?php 
-            $time_validade = strtotime($exibir['validade']);
+            $time_validade = strtotime($resultReag['validade']);
             $time_atual = strtotime($dataAtual);
             // Calcula a diferença de segundos entre as duas datas:
             $diferenca = $time_validade - $time_atual; // 19522800 segundos
@@ -75,7 +82,7 @@ $pdo = conectar();
           <td><?php echo $exibir['cas']; ?></td>
           <td><?php echo $exibir['desc_reag']; ?></td>
           <td><?php echo $risco['desc_risco']; ?></td>
-          <td><?php echo $exibir['qtd_reag']; echo $exibir['unidade'];?></td>
+          <td><?php echo $resultReag['qtd_reag']; echo $resultReag['unidade'];?></td>
           <td><a href="" title="Vizualizar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulReagenteModal" id="<?php echo $exibir['cas']; ?>">Visualizar</button></a></td>
           <td><a  title="Cadastrar Anexo"><button type="button" class="btn btn-success" id="<?php echo $exibir['cas']; ?>"  onclick="retornaValor(this)" name="BotaoAnexo">Anexo</button></a></td>
         </tr>

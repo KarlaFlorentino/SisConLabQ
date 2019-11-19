@@ -30,21 +30,23 @@
 	//$result_id_classe = $sql3-> fetch(PDO_FETCH_ASSOC); 
 	//echo $id_classe;
 
-	$sql = $pdo->prepare("INSERT INTO lab.reagente (cas,desc_reag,local_reag,controlado,qtd_reag,unidade,validade,area_reag,id_classe,id_risco)  VALUES (:cas,:desc_reag,:local_reag,:controlado,:qtd_reag,:unidade,:validade,:area_reag,:id_classe,:id_risco)");
+	$sql = $pdo->prepare("INSERT INTO lab.reagente (cas,desc_reag,local_reag,controlado,area_reag,id_classe,id_risco)  VALUES (:cas,:desc_reag,:local_reag,:controlado,:area_reag,:id_classe,:id_risco)");
 	$sql->bindValue(":cas",$cas);
 	$sql->bindValue(":desc_reag",$desc_reag);
 	$sql->bindValue(":local_reag",$local_reag);
 	$sql->bindValue(":controlado",$controlado);
-	$sql->bindValue(":qtd_reag",$qtd_reag);
-	$sql->bindValue(":unidade",$unidade);
-	$sql->bindValue(":validade",$validade);
 	$sql->bindValue(":area_reag",$area_reag);
 	$sql->bindValue(":id_classe",$classe);
 	$sql->bindValue(":id_risco",$risco);
 	//echo $sql;
-	
+	 $sql2 = $pdo->prepare("INSERT INTO lab.EstoqueReag (cas,qtd_reag,unidade,validade)  VALUES (:cas,:qtd_reag,:unidade,:validade)");
+	$sql2->bindValue(":cas",$cas);
+	$sql2->bindValue(":qtd_reag",$qtd_reag);
+	$sql2->bindValue(":unidade",$unidade);
+	$sql2->bindValue(":validade",$validade);
 	try{
 		$conn = $sql->execute();
+		$conn = $sql2->execute();
 		echo true;
 	}catch(Exception $e){
 		echo false;

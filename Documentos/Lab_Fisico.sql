@@ -23,10 +23,7 @@ cas varchar(11) not null primary key,
 desc_Reag varchar(100) not null,
 local_Reag varchar(50) not null, 
 controlado varchar(3) not null, 
-qtd_Reag float not null,
-unidade varchar(3) not null, 
-validade date not null, 
-anexo varchar(100) not null, 
+anexo varchar(200), 
 area_Reag varchar(8) not null,
 id_Classe int not null,
 id_Risco int not null,
@@ -36,23 +33,50 @@ foreign key (id_Risco) references lab.Risco(id_Risco) on delete cascade
 
 COMMIT;
 
+create table lab.EstoqueReag(
+cod_EstoqueReag serial not null primary key,
+qtd_Reag float not null,
+unidade varchar(3) not null, 
+validade date not null,
+cas varchar(11) not null,
+foreign key (cas) references lab.Reagente(cas) on delete cascade
+);
+
+COMMIT;
+
 create table lab.Material(
-id_Mat serial not null primary key,
-desc_Mat varchar(100) not null, 
-qtd_Mat int not null, 
+id_Mat int not null primary key,
+desc_Mat varchar(100) not null,  
 area_Mat varchar(8) not null, 
 local_Mat varchar(50) not null
 );
 
 COMMIT;
 
+create table lab.EstoqueMat(
+cod_EstoqueMat serial not null primary key,
+qtd_Mat int not null,
+id_Mat int not null,
+foreign key (id_mat) references lab.Material(id_mat) on delete cascade
+); 
+
+COMMIT;
+
 create table lab.Equipamento(
-id_Equip serial not null primary key,
+id_Equip int not null primary key,
 desc_Equip varchar(100) not null, 
 local_Equip varchar(50) not null,
-qtd_Equip int not null, 
 area_Equip varchar(8) not null
 );
+
+COMMIT;
+
+create table lab.EstoqueEquip(
+cod_EstoqueEquip serial not null primary key,
+qtd_Equip int not null, 
+id_Equip int not null,
+foreign key (id_Equip) references lab.Equipamento(id_Equip) on delete cascade
+); 
 
 COMMIT;
 
@@ -85,15 +109,7 @@ foreign key (id_Agenda) references lab.Agenda(id_Agenda) on delete cascade
 
 COMMIT;
 
-delete from lab.material;
-delete from lab.equipamento;
-delete from lab.classe;
-delete from lab.risco;
-delete from lab.agenda;
-delete from lab.reagente;
 select * from lab.reagente;
-select * from lab.material;
+select * from lab.estoquereag;
 select * from lab.equipamento;
-select * from lab.risco;
-select * from lab.classe;
-select * from lab.agenda;
+select * from lab.estoqueequip;

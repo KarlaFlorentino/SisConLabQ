@@ -1,6 +1,0 @@
-- Separar quantidade e validade do cadastro dos reagentes
-- Criar tabela no banco para cadastrar novas compra
-- Criar nova tela com um pesquisar para pessoa diminuir 
-- Criar nova tela para lançar compra
-- No lugar de excluir fazer inativo e ativo
- 

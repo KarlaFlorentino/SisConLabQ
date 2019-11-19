@@ -34,15 +34,19 @@
             </thead>
             <?php
                     //$email = $_SESSION['user'];
-                    $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat,qtd_mat FROM lab.material");
+                    $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat FROM lab.material");
                     $result = $sql->execute();
                     while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+                        $id = $exibir['id_mat'];
+                        $sql3 = $pdo->prepare("SELECT qtd_mat FROM lab.EstoqueMat where id_mat = '$id'" );
+                        $result3 = $sql3->execute();
+                        $resultMat =  $sql3->fetch(PDO::FETCH_ASSOC);
                 ?>
             <tbody>
                 <tr>
                     <td><?php echo $exibir['desc_mat']; ?></td>
                     <td><?php echo $exibir['local_mat']; ?></td>
-                    <td><?php echo $exibir['qtd_mat']; ?></td>
+                    <td><?php echo $resultMat['qtd_mat']; ?></td>
                     <td><a href="" title="Visualizar Material"><button type="button"
                                 class="btn btn-outline-primary view_data"
                                 id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
@@ -66,9 +70,9 @@
                 <form class="form-horizontal" method="post" id="insert_form_M">
                     <p></p>
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>
+                        <label class="col-md-4 control-label" for="id_Mat">Código</label>
                         <div class="col-md-5">
-                            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição"
+                            <input id="id_Mat" name="id_Mat" type="text" placeholder="Código"
                                 class="form-control input-md" required="" style="text-align: center;">
                         </div>
                         <div class="col-md-2">
@@ -77,6 +81,13 @@
                                 <option value="Física">Física</option>
                                 <option value="Química">Química</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc_Mat">Descrição</label>
+                        <div class="col-md-5">
+                            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição"
+                                class="form-control input-md" required="" style="text-align: center;">
                         </div>
                     </div>
                     <div class="form-group">

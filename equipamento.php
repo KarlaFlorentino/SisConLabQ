@@ -28,17 +28,21 @@
             </thead>
             <?php
             //$email = $_SESSION['user'];
-                $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip,qtd_equip FROM lab.equipamento");
+                $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip FROM lab.equipamento");
                 $result = $sql->execute();
 
 
                 
                 while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+                    $id = $exibir['id_equip'];
+                    $sql3 = $pdo->prepare("SELECT qtd_equip FROM lab.EstoqueEquip where id_equip = '$id'" );
+                    $result3 = $sql3->execute();
+                    $resultEquip =  $sql3->fetch(PDO::FETCH_ASSOC);
                 ?>
             <tbody>
                <td><?php echo $exibir['desc_equip']; ?></td>
                     <td><?php echo $exibir['local_equip']; ?></td>
-                    <td><?php echo $exibir['qtd_equip']; ?></td>
+                    <td><?php echo $resultEquip['qtd_equip']; ?></td>
                     <td><a href="" title="Visualizar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulEquipamentoModal" id="<?php echo $exibir['id_equip']; ?>">Visualizar</button></a></td>
                 </tr>
                 <?php 
@@ -59,9 +63,9 @@
                 <form class="form-horizontal" id="insert_form_E" method="post">
                     <p></p>
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="desc_Equip">Descrição</label>  
+                        <label class="col-md-4 control-label" for="id_Equip">Código</label>  
                           <div class="col-md-5">
-                            <input id="desc_Equip" name="desc_Equip" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+                            <input id="id_Equip" name="id_Equip" type="text" placeholder="Código" class="form-control input-md" required="" style="text-align: center;">
                           </div>
                           <div class="col-md-2">
                               <select id="area_Equip" name="area_Equip" class="form-control" style="margin: 0% -60% 0% 0%">
@@ -70,6 +74,12 @@
                                 <option value="Química">Química</option>
                               </select> 
                             </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc_Equip">Descrição</label>  
+                          <div class="col-md-5">
+                            <input id="desc_Equip" name="desc_Equip" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+                          </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="local_Equip">Localização</label>  
