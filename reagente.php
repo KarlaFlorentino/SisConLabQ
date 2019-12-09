@@ -1,27 +1,43 @@
+<?php
+session_start();
+?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><script type="text/javascript">
+            //método que garante que o JQuery é executado somente após o documento ser carregado
+            $('document').ready(function() {
+                    $('#cas').keyup(function() {
+                        $.post('des_reag.php', {busca: $('#cas').val()},
+                        function(data) {
+                            $('#conteudopesquisa').show();
+                            $('#conteudopesquisa').empty().html(data);
+                        }
+                        );
+                    });
+                });
+             
+            
+        </script>
 <?php
 
 include"header.php";
 
 include_once 'conexao.php';
-$pdo = conectar(); 
-//$x;
-//$var = "13243";
+$pdo = conectar();
+
+  if (isset($_SESSION['user'])) {
 ?>
-
-
-<!-- Conteudo -->
-
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
   <a name="acontent" id="acontent" class="anchor">conteúdo</a>
+  <p><center><h2>Lista de Reagentes cadastrados</h2></center><br></p>
   <a href="" title="Cadastrar Reagente"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#addReagenteModal">Cadastrar</button></a>
-  <div style="margin: -5% 0% 0% 20%">    
-    <div class="col-md-5">
-      <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+  <form method="post" id="form_pesq">
+    <div style="margin: -5% 0% 0% 20%">    
+      <div class="col-md-5">
+        <input id="desc_Reag" name="desc_Reag" type="text" placeholder="Descrição" class="form-control input-md"  style="text-align: center;" autofocus>
+      </div>
+      <a href="" title="Pesquisar Reagente"><input type="submit" name="pesqReag" id="pesqReag" value="Pesquisar" class="btn btn-secundary"></a>
     </div>
-    <a href="" title="Pesquisar Reagente"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
-  </div>
+  </form>
   <br>
 
   <span id="msg"></span>
@@ -31,6 +47,7 @@ $pdo = conectar();
       <thead>
         <tr>
           <th></th>
+          <th scope="col" width="10%">Lote</th>
           <th scope="col" width="10%">CAS</th>
           <th scope="col" width="45%">Descrição</th>
           <th scope="col" width="5%">Risco</th>
@@ -42,20 +59,20 @@ $pdo = conectar();
       <?php
       //$email = $_SESSION['user'];
           $dataAtual = date("Y-m-d");
-          $sql = $pdo->prepare("SELECT cas,desc_reag,id_risco FROM lab.reagente");
+          $sql = $pdo->prepare("SELECT lote,cas,desc_reag,id_risco FROM lab.reagente");
           $result = $sql->execute();    
 
           
           while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-          	$cas = $exibir['cas'];
+          	
             $pesq = $exibir['id_risco'];
             $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
             $result2 = $sql2->execute();
             $risco = $sql2->fetch(PDO::FETCH_ASSOC);
 
-           
-
-            $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade FROM lab.EstoqueReag where cas = '$cas'" );
+            $lote = $exibir['lote'];
+            $cas = $exibir['cas'];
+            $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade,lote FROM lab.EstoqueReag where cas = '$cas' AND lote = '$lote'" );
           	$result3 = $sql3->execute();
           	$resultReag =  $sql3->fetch(PDO::FETCH_ASSOC);
 
@@ -72,13 +89,14 @@ $pdo = conectar();
             $dias = (int)floor( $diferenca / (60 * 60 * 24)); // 225 dias
 
             if ($dias < 0) {
-              echo '<th scope="row"><img src="imagens/vencido.png" title="Vencido" width="15" height="15"></th>';
+              echo '<th scope="row"><img src="imagens/vencido.png" title="Vencido" width="30" height="30"></th>';
             }elseif ($dias > 10) {
-              echo '<th scope="row"><img src="imagens/ok.png" title="OK" width="15" height="15"></th>';
+              echo '<th scope="row"><img src="imagens/ok.png" title="OK" width="30" height="30"></th>';
             }else{
-              echo '<th scope="row"><img src="imagens/quase.png" title="Quase Vencido" width="15" height="15"></th>';
+              echo '<th scope="row"><img src="imagens/quase.png" title="Quase Vencido" width="30" height="30"></th>';
             }
            ?>
+           <td><?php echo $exibir['lote']; ?></td>
           <td><?php echo $exibir['cas']; ?></td>
           <td><?php echo $exibir['desc_reag']; ?></td>
           <td><?php echo $risco['desc_risco']; ?></td>
@@ -105,9 +123,9 @@ $pdo = conectar();
         <form class="form-horizontal" id="insert_form_RG" method="post" enctype="multipart/form-data">
           <p></p>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="cas">CAS</label>  
+            <label class="col-md-4 control-label" for="lote">Lote</label>  
             <div class="col-md-5">
-              <input id="cas" name="cas" type="text" placeholder="CAS" class="form-control input-md" required="" style="text-align: center;">
+              <input id="lote" name="lote" type="text" placeholder="Lote" class="form-control input-md" required="" style="text-align: center;" autofocus="">
             </div>
             <div class="col-md-2">
               <select class="form-control" id="area_reag" name="area_reag" style="margin: 0% -60% 0% 0%">
@@ -118,9 +136,16 @@ $pdo = conectar();
             </div>
           </div>
           <div class="form-group">
+            <label class="col-md-4 control-label" for="cas">CAS</label>  
+            <div class="col-md-5" id="busca">
+              <input id="cas" name="cas" type="text" placeholder="CAS" class="form-control input-md" required="" style="text-align: center;" autofocus="">
+            </div>
+            
+        </div>
+        <div class="form-group">
             <label class="col-md-4 control-label" for="desc_Reag">Descrição</label>  
-            <div class="col-md-5">
-              <input id="desc_reag" name="desc_reag" type="text" placeholder="Nome" class="form-control input-md" required="" style="text-align: center;">  
+            <div class="col-md-5"  id="conteudopesquisa" >
+              
             </div>
           </div>
           <div class="form-group">
@@ -139,7 +164,7 @@ $pdo = conectar();
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="classe">Classe: </label>  
+            <label class="col-md-4 control-label" for="classe">Classe </label>  
             <div class="col-md-5" id="selClasses">
             <select id="classe" name="classe" class="form-control">
             	<?php
@@ -176,9 +201,9 @@ $pdo = conectar();
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idTitulo">Quantidade: </label>  
+            <label class="col-md-4 control-label" for="idTitulo">Quantidade </label>  
             <div class="col-md-5">
-                <input name="qtd_reag" placeholder="Quantidade" class="form-control input-md" style="text-align: center;">
+                <input name="qtd_reag" placeholder="Quantidade exemplo: 2.5" class="form-control input-md" style="text-align: center;">
             </div>
             <div class="col-md-2">
               <select name="unidade" class="form-control" style="margin: 0% -60% 0% 0%">
@@ -187,7 +212,7 @@ $pdo = conectar();
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="idTitulo">Validade: </label>  
+            <label class="col-md-4 control-label" for="idTitulo">Validade </label>  
             <div class="col-md-5">
               <input name="validade" type="date" class="form-control input-md" style="text-align: center;">    
             </div>
@@ -214,9 +239,9 @@ $pdo = conectar();
         <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
           <p></p>
           <div class="form-group">
-            <label class="col-md-4 control-label" for="cas">CAS</label>  
+            <label class="col-md-4 control-label" for="lote">Lote</label>  
             <div class="col-md-5">
-              <input id="cas" type="text" placeholder="CAS" class="form-control input-md" required="" value="64-19-7" style="text-align: center;">
+              <input id="lote" type="text" placeholder="Lote" class="form-control input-md" required="" value="64-19-7" style="text-align: center;">
             </div>
             <div class="col-md-2">
               <select class="form-control" id="area_Reag" style="margin: 0% -60% 0% 0%">
@@ -225,6 +250,13 @@ $pdo = conectar();
                 <option value="Não">Química</option>
               </select> 
             </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="cas">CAS</label>  
+            <div class="col-md-5">
+              <input id="cas" type="text" placeholder="CAS" class="form-control input-md" required="" value="64-19-7" style="text-align: center;">
+            </div>
+            
           </div>
           <div class="form-group">
             <label class="col-md-4 control-label" for="desc_Reag">Descrição</label>  
@@ -372,6 +404,12 @@ $pdo = conectar();
     </div>
   </div>
 </div>
+<?php
+  } else { //CASO NÃO ESTEJA AUTENTICADO
+    echo '<div class="alert alert-warning" style="text-align:center;">Esta é uma área reservada, só usuários autorizados podem ter acesso. 
+            <br/><a href="Index.php">Se identifique aqui</a></div>';
+  }
+?>
 <script>
 function retornaValor(elemento) {
   var x = elemento.id;

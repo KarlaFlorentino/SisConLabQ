@@ -21,8 +21,14 @@
 	$sql2->bindValue(":qtd_Equip",$qtd_Equip);
 	try{
 		$conn = $sql->execute();
-		$conn = $sql2->execute();
-		echo true;
+		try {
+			$conn = $sql2->execute();
+			echo true;
+		} catch (Exception $e) {
+			echo false;
+			$sql3 = $pdo->prepare("DELETE FROM lab.equipamento WHERE id_Equip = '$id_Equip'");
+			$conn = $sql3->execute();
+		}
 	}catch(Exception $e){
 		echo false;
 	}

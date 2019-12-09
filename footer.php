@@ -3,11 +3,13 @@
 
               <!-- /Demo Plone Content -->
     </div>
+<?php if (isset($_SESSION['user'])) { ?>
 <div class="clear"></div>
 <div id="voltar-topo">
     <a href="#wrapper">Voltar para o topo</a>
 </div>
 </div>
+<?php }?>
 <!-- Footer -->
 <div id="footer" role="contentinfo">
     <a name="afooter" id="afooter" class="anchor">rodapé</a>

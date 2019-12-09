@@ -1,14 +1,14 @@
 <?php
     include_once 'conexao.php';
     $pdo = conectar();
+    $queryString = $_POST['desc_Reag'];
     $dataAtual = date("Y-m-d");
-    $sql = $pdo->prepare("SELECT lote,cas,desc_reag,id_risco FROM lab.reagente");
+    $sql = $pdo->prepare("SELECT lote,cas,desc_reag,id_risco FROM lab.reagente where desc_reag like('%" . $queryString . "%')");
     $result = $sql->execute();
     $tabela="<table class='table table-hover'>
     <thead>
       <tr>
         <th></th>
-        <th scope='col' width='10%'>Lote</th>
         <th scope='col' width='10%'>CAS</th>
         <th scope='col' width='45%'>Descrição</th>
         <th scope='col' width='5%'>Risco</th>
@@ -26,9 +26,10 @@
         $result2 = $sql2->execute();
         $risco = $sql2->fetch(PDO::FETCH_ASSOC);
         
+        $lote = $exibir['lote'];
         $cas = $exibir['cas'];
 
-        $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade FROM lab.EstoqueReag where cas = '$cas'" );
+        $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade FROM lab.EstoqueReag where cas = '$cas' AND lote = '$lote'" );
         $result3 = $sql3->execute();
         $resultReag =  $sql3->fetch(PDO::FETCH_ASSOC);
         
@@ -42,11 +43,11 @@
         
 
         if ($dias < 0) {
-        	$tabela .="<th scope='row'><img src='imagens/vencido.png' title='Vencido' width='30' height='30'></th>";
+        	$tabela .="<th scope='row'><img src='imagens/vencido.png' title='Vencido' width='15' height='15'></th>";
         }elseif ($dias > 10) {
-            $tabela .="<th scope='row'><img src='imagens/ok.png' title='OK' width='30' height='30'></th>";
+            $tabela .="<th scope='row'><img src='imagens/ok.png' title='OK' width='15' height='15'></th>";
         }else{
-            $tabela .="<th scope='row'><img src='imagens/quase.png' title='Quase Vencido' width='30' height='30'></th>";
+            $tabela .="<th scope='row'><img src='imagens/quase.png' title='Quase Vencido' width='15' height='15'></th>";
         }
 
         $tabela .="<td>".$exibir['lote']."</td>";

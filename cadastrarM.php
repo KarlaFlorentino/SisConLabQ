@@ -21,8 +21,14 @@
 	$sql2->bindValue(":qtd_Mat",$qtd_Mat);
 	try{
 		$conn = $sql->execute();
-		$conn = $sql2->execute();
-		echo true;
+		try {
+			$conn = $sql2->execute();
+			echo true;
+		} catch (Exception $e) {
+			echo false;
+			$sql3 = $pdo->prepare("DELETE FROM lab.material WHERE id_Mat = '$id_Mat'");
+			$conn = $sql3->execute();
+		}
 	}catch(Exception $e){
 		echo false;
 	}

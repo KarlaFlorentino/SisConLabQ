@@ -1,15 +1,21 @@
+<?php
+session_start();
+?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <?php 
-  $id_reag=$_GET['id'];
-  session_start();
-  include"header.php"; include_once 'conexao.php'; $pdo = conectar();
+  include"header.php"; 
+  include_once 'conexao.php'; 
+  $pdo = conectar();
+  if (isset($_SESSION['user'])) {
+    $id_reag=$_GET['id'];
 ?>
 
 <!-- Conteudo -->
 
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
   <a name="acontent" id="acontent" class="anchor">conteúdo</a>
+  <p><center><h2>Cadastro de Anexo</h2></center><br></p>
    <div class="col-md-10">
        	<form class="form-horizontal" method="POST" action="CadastrarAn.php" enctype="multipart/form-data">
           <p></p>
@@ -24,14 +30,14 @@
         </form>
     </div>
 
-	<p><br></p>
+	<!--<p><br></p>
 
 	<div  class="col-md-10">    
     <div class="col-md-5">
       <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
     </div>
     <a href="" title="Pesquisar Anexo"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
-  </div>
+  </div>-->
   <p><br><br></p>
   <?php
         //session_destroy();
@@ -42,12 +48,13 @@
           <div id="erro" class="alert alert-warning" role="alert">Falha no cadastro do Anexo!</div>
         <?php
           }
-          else{
+          else if ($_SESSION['erro']=="OK"){
         ?>
           <div id="erro" class="alert alert-success" role="alert">Anexo cadastrado com sucesso!</div>
         <?php
         }
-      session_unset($_SESSION['erro']);
+        $_SESSION['erro']="TESTE";
+      //session_unset($_SESSION['erro']);
       }
   ?>
   <script type="text/javascript">
@@ -79,5 +86,11 @@
      } ?>
   </table>
 </div>
+<?php
+        } else { //CASO NÃO ESTEJA AUTENTICADO
+            echo '<div class="alert alert-warning" style="text-align:center;">Esta é uma área reservada, só usuários autorizados podem ter acesso. 
+            <br/><a href="Index.php">Se identifique aqui</a></div>';
+        }
+?>
 
 <?php include"footer.php"; ?>

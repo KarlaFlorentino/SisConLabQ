@@ -20,7 +20,7 @@ $(document).ready(function(){
 
         //Limpar os campos
         $('#insert_form_RG')[0].reset();
-                
+        document.getElementById("conteudopesquisa").innerHTML="";
         //Fechar a janela 
         $('#addReagenteModal').modal('hide');
 
@@ -30,5 +30,21 @@ $(document).ready(function(){
       });
     });
   });
+
+$(document).ready(function(){
+    $('#form_pesq').on('submit', function(event){
+      event.preventDefault();
+      //Receber os dados do formulário
+      var dados = $("#form_pesq").serialize();
+
+            $.post("pesquisarRG.php", dados, function (valor){
+            $("#tabela").html(valor);
+                
+        $('#form_pesq')[0].reset();
+
+      });
+    });
+  });
+  
 </script>
 

@@ -49,19 +49,17 @@ session_start();
   <div class="form">
     <div id="d2" style="display:none;">
       <form class="insert_form_U" method="post" action="cadastrarU.php">
-        <input type="text" id="email" name="email" value="analuisadass@gmail.com" placeholder="e-mail"/>
-        <input type="password" id="senha" name="senha" value="senha" placeholder="senha"/>
-        <input type="password" id="senha2" value="senha" onblur="validaSenha();"name="senha2" placeholder="confirmar senha"/>
+        <input type="email" id="email" name="email" placeholder="e-mail" required="" />
+        <input type="password" id="senha" name="senha" placeholder="senha" required=""/>
+        <input type="password" id="senha2" onblur="validaSenha();"name="senha2" placeholder="confirmar senha" required=""/>
         <span id="msgSenha"></span>
         <select id="area_Pessoa" name="area_Pessoa" class="form-control">
-          <option>Selecione a área</option>
-          <option value="Biologia" selected="">Biologia</option>
+          <option value="Biologia">Biologia</option>
           <option value="Física">Física</option>
           <option value="Química">Química</option>
         </select>
         <select id="tipo" name="tipo" class="form-control">
-          <option>Selecione a função</option>
-          <option value="Professor" selected="">Professor</option>
+          <option value="Professor">Professor</option>
           <option value="Monitor">Monitor</option>
         </select>
          <button type="submit" id="cadUser" name="CadUser">cadastrar</button>
@@ -70,9 +68,9 @@ session_start();
     </div>
     <span id="msg"></span>
     <div id="d1" style="display: ">
-      <form class="login-form" method="post">
-        <input type="text" placeholder="e-mail"/>
-        <input type="password" placeholder="senha"/>
+      <form class="login-form" method="post" action="login.php">
+        <input id="email" name="email" type="text" placeholder="e-mail" required=""/>
+        <input id="senha" name="senha" type="password" placeholder="senha" required=""/>
         <p class="message"><a href="javascript:void(0)" onclick="javascript:showDiv( 'd1', false );showDiv( 'd3', true );">Esqueceu a senha?</a> </p>
         <br>
         <button type="submit">login</button>
@@ -81,6 +79,18 @@ session_start();
         <?php
         //session_destroy();
         //$_SESSION['erro'] = true;
+
+      if (isset($_SESSION['erro2'])) {
+      if ($_SESSION['erro2'] == 'Erro') {
+    ?>
+      <div id="erro" class="alert alert-warning">
+        Erro no login. Tente novamente.
+      </div>
+    <?php
+      $_SESSION['erro2'] = 'OK';
+    } 
+  } 
+?><?php
         if (isset($_SESSION['erro'])) {
           if ($_SESSION['erro']=="ERRO") {
         ?>
@@ -89,21 +99,22 @@ session_start();
           </div>
         <?php
           }
-          else{
+          else if ($_SESSION['erro']=="OK"){
         ?>
           <div style="color: green; width: 100%, text-align: center;" id="erro">
             <strong>Sucesso</strong> ao cadastrar Usuário. 
           </div>
         <?php
         }
-      session_unset($_SESSION['erro']);
+        $_SESSION['erro']="TESTE";
+      //session_unset($_SESSION['erro']);
       }
   ?>
       </form>
     </div>
     <div id="d3" style="display:none;">
       <form class="senha-form" method="post">
-        <input type="text" placeholder="e-mail"/>
+        <input type="text" placeholder="e-mail" required=""/>
         <button onclick="javascript:showDiv( 'd1', true );showDiv( 'd3', false );">confirmar</button>
     </form>
     </div>

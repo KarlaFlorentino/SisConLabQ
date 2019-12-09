@@ -1,18 +1,29 @@
+<?php
+session_start();
+?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-<?php include"header.php";include_once 'conexao.php';$pdo = conectar(); ?>
+<?php 
+    include"header.php";
+    include_once 'conexao.php';
+    $pdo = conectar(); 
+    if (isset($_SESSION['user'])) {
+?>
 
 <!-- Conteudo -->
 
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
     <a name="acontent" id="acontent" class="anchor">conteúdo</a>
+    <p><center><h2>Lista de Equipamentos cadastrados</h2></center><br></p>
     <a href="" title="Cadastrar Equipamento"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#addEquipamentoModal">Cadastrar</button></a>
-    <div style="margin: -5% 0% 0% 20%">    
-        <div class="col-md-5">
-            <input id="desc_Mat" name="desc_Mat" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">
+    <form method="post" id="form_pesq">
+        <div style="margin: -5% 0% 0% 20%">    
+            <div class="col-md-5">
+                <input id="desc_Equip" name="desc_Equip" type="text" placeholder="Descrição" class="form-control input-md" style="text-align: center;" autofocus>
+            </div>
+            <a href="" title="Pesquisar Equipamento"><input type="submit" name="pesqEquip" id="pesqEquip" value="Pesquisar" class="btn btn-secundary"></a>
         </div>
-        <a href="" title="Pesquisar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#addMaterialModal">Pesquisar</button></a>
-    </div>
+    </form>
     <br>
 
     <span id="msg"></span>
@@ -65,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="id_Equip">Código</label>  
                           <div class="col-md-5">
-                            <input id="id_Equip" name="id_Equip" type="text" placeholder="Código" class="form-control input-md" required="" style="text-align: center;">
+                            <input id="id_Equip" name="id_Equip" type="text" placeholder="Código" class="form-control input-md" required="" style="text-align: center;" autofocus>
                           </div>
                           <div class="col-md-2">
                               <select id="area_Equip" name="area_Equip" class="form-control" style="margin: 0% -60% 0% 0%">
@@ -149,7 +160,12 @@
         </div>
     </div>
 </div>
-
+<?php
+        } else { //CASO NÃO ESTEJA AUTENTICADO
+            echo '<div class="alert alert-warning" style="text-align:center;">Esta é uma área reservada, só usuários autorizados podem ter acesso. 
+            <br/><a href="Index.php">Se identifique aqui</a></div>';
+        }
+?>
 <script type="text/javascript">
     setTimeout(function() {
             $("#div").load("equipamento.php #tabela");
