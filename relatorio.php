@@ -2,7 +2,6 @@
 	session_start();
 	include"header.php"; 
 	include_once 'conexao.php'; 
-	$pdo = conectar(); 
 	if (isset($_SESSION['user'])) {
 ?>
 <div id="portal-column-content" class="cell width-3:4 position-1:4">
@@ -12,34 +11,47 @@
 	<br>
 	<div>
 		<?php  
-			$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.reagente");
-		    $result = $sql->execute();
-		 	$cad = $sql->fetch(PDO::FETCH_ASSOC);
+			$sql = "SELECT count(*) AS qtd from reagente";
+		    $result = mysqli_query($conn, $sql); 
+		 	$cad = mysqli_fetch_assoc($result);
 	    ?>
 	    <p>- <?php echo $cad['qtd'];?> Reagente(s) cadastrado(s).</p>
+
+	    <!--------------------------------------------------------------------------------------------------------------------------------->
+
 		<?php
 		 	$dataAtual = date("Y-m-d");
-			$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.reagente AS R, lab.EstoqueReag AS E WHERE E.validade < '$dataAtual' AND R.cas = E.cas AND R.lote = E.lote");
-		    $result = $sql->execute();
-		 	$vencido = $sql->fetch(PDO::FETCH_ASSOC);
+
+			$sql = "SELECT count(*) AS qtd from reagente AS R, EstoqueReag AS E WHERE DATEDIFF(E.validade, '$dataAtual') < 0 AND R.cas = E.cas AND R.lote = E.lote";
+		    $result = mysqli_query($conn, $sql); 
+		 	$vencido = mysqli_fetch_assoc($result);
 	 	?>
 		<p>- <?php echo $vencido['qtd'];?> Reagente(s) vencido(s).</p>
+
+		<!--------------------------------------------------------------------------------------------------------------------------------->
+
 		<?php  
-			$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.reagente AS R, lab.EstoqueReag AS E WHERE E.validade - '$dataAtual' > 10 AND R.cas = E.cas AND R.lote = E.lote");
-		    $result = $sql->execute();
-		 	$ok = $sql->fetch(PDO::FETCH_ASSOC);
+			$sql = "SELECT count(*) AS qtd from reagente AS R, EstoqueReag AS E WHERE DATEDIFF(E.validade, '$dataAtual') > 10 AND R.cas = E.cas AND R.lote = E.lote";
+		    $result = mysqli_query($conn, $sql); 
+		 	$ok = mysqli_fetch_assoc($result);
 		?>
 		<p>- <?php echo $ok['qtd'];?> Reagente(s) OK.</p>
+
+		<!--------------------------------------------------------------------------------------------------------------------------------->
+
 		<?php  
-			$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.reagente AS R, lab.EstoqueReag AS E WHERE E.validade - '$dataAtual'> 0 AND E.validade - '$dataAtual' < 11 AND R.cas = E.cas AND R.lote = E.lote");
-		    $result = $sql->execute();
-		 	$quase = $sql->fetch(PDO::FETCH_ASSOC);
+			$sql = "SELECT count(*) AS qtd from reagente AS R, EstoqueReag AS E WHERE DATEDIFF(E.validade, '$dataAtual') > 0 AND DATEDIFF(E.validade, '$dataAtual') < 11 AND R.cas = E.cas AND R.lote = E.lote";
+		    $result = mysqli_query($conn, $sql); 
+		 	$quase = mysqli_fetch_assoc($result);
 		?>
 		<p>- <?php echo $quase['qtd'];?> Reagente(s) quase vencido(s).</p>
+
+		<!--------------------------------------------------------------------------------------------------------------------------------->
+		
 		<?php  
-			$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.reagente WHERE controlado = 'Sim'");
-		    $result = $sql->execute();
-		 	$controlado = $sql->fetch(PDO::FETCH_ASSOC);
+			$sql = "SELECT count(*) AS qtd from reagente WHERE controlado = 'Sim'";
+		    $result = mysqli_query($conn, $sql);
+		 	$controlado = mysqli_fetch_assoc($result);
 		?>
 		<p>- <?php echo $controlado['qtd'];?> Reagente(s) controlado(s).</p>
 		
@@ -52,9 +64,9 @@
 	<div style="background-color: #19882c; color: white;"><center>Equipamento</center></div>
 	<br>
 	<?php  
-		$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.equipamento");
-	    $result = $sql->execute();
-	 	$exibir = $sql->fetch(PDO::FETCH_ASSOC);
+		$sql = "SELECT count(*) AS qtd from equipamento";
+	    $result = mysqli_query($conn, $sql);
+	 	$exibir = mysqli_fetch_assoc($result);
     ?>
     <p>- <?php echo $exibir['qtd'];?> Equipamento(s) cadastrado(s).</p>
     <br>
@@ -62,9 +74,9 @@
 	<div style="background-color: #19882c; color: white;"><center>Material</center></div>
 	<br>
 	<?php  
-		$sql = $pdo->prepare("SELECT count(*) AS qtd from lab.material");
-	    $result = $sql->execute();
-	 	$exibir = $sql->fetch(PDO::FETCH_ASSOC);
+		$sql = "SELECT count(*) AS qtd from material";
+	    $result = mysqli_query($conn, $sql);
+	 	$exibir = mysqli_fetch_assoc($result);
     ?>
     <p>- <?php echo $exibir['qtd'];?> Material(is) cadastrado(s).</p>
 </div>

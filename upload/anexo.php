@@ -16,7 +16,7 @@ session_start();
   <a name="acontent" id="acontent" class="anchor">conteúdo</a>
   <p><center><h2>Cadastro de Anexo</h2></center><br></p>
    <div class="col-md-10">
-       	<form class="form-horizontal" method="POST" action="cadastrarAn.php" enctype="multipart/form-data">
+       	<form class="form-horizontal" method="POST" action="CadastrarAn.php" enctype="multipart/form-data">
           <p></p>
           <div class="form-group">
             <label class="col-md-4 control-label" for="idTitulo">Anexo: </label>  

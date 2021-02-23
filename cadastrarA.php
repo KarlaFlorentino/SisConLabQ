@@ -1,7 +1,11 @@
 <?php
+include 'conexao.php';
+session_start();
+# recuperando os dados enviados via post:
 
-	include_once 'conexao.php';
-	$pdo = conectar();
+if (mysqli_connect_errno())
+
+trigger_error(mysqli_connect_error());
 
 	# recuperando os dados enviados via post:
 	$data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
@@ -9,15 +13,10 @@
 	$horaInicio = filter_input(INPUT_POST, 'horaInicio', FILTER_SANITIZE_STRING);
 	$horaFim = filter_input(INPUT_POST, 'horaFim', FILTER_SANITIZE_STRING);
 
-	$sql = $pdo->prepare("INSERT INTO lab.agenda(data, desc_Agenda, horaInicio, horaFim)  VALUES (:data, :desc_Agenda, :horaInicio, :horaFim)");
-
-	$sql->bindValue(":data",$data);
-	$sql->bindValue(":desc_Agenda",$desc_Agenda);
-	$sql->bindValue(":horaInicio",$horaInicio);
-	$sql->bindValue(":horaFim",$horaFim);
+	$query = $conn->query("INSERT INTO lab.agenda (`data`,`desc_Agenda`,`horaInicio`,`horaFim`)  VALUES (\"$data\",\"$desc_Agenda\", \"$horaInicio\", \"$horaFim\");");
 
 	try{
-		$conn = $sql->execute();
+		$conn->close();
 		echo true;
 	}catch(Exception $e){
 		echo false;

@@ -1,8 +1,7 @@
 <?php
     include_once 'conexao.php';
-    $pdo = conectar();
-    $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip FROM lab.equipamento");
-    $result = $sql->execute();
+    $sql = "SELECT id_equip,desc_equip,local_equip FROM equipamento";
+    $result = mysqli_query($conn, $sql);    
     $tabela="<table class='table table-hover'>
         <thead>
             <tr>
@@ -14,11 +13,11 @@
         </thead>
         <tbody>";
 
-         while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+         while($exibir = mysqli_fetch_assoc($result)){
                 $id = $exibir['id_equip'];
-                $sql3 = $pdo->prepare("SELECT qtd_equip FROM lab.EstoqueEquip where id_equip = '$id'" );
-                $result3 = $sql3->execute();
-                $resultEquip =  $sql3->fetch(PDO::FETCH_ASSOC);
+                $sql3 = "SELECT qtd_equip FROM EstoqueEquip where id_equip = '$id'";
+                $result3 = mysqli_query($conn, $sql3); 
+                $resultEquip = mysqli_fetch_assoc($result3);
 
                 $tabela .="<td>".$exibir['desc_equip']."</td>";
                 $tabela .="<td>".$exibir['local_equip']."</td>";

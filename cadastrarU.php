@@ -1,7 +1,11 @@
 <?php
+	include 'conexao.php';
 	session_start();
-	include_once 'conexao.php';
-	$pdo = conectar();
+	# recuperando os dados enviados via post:
+	
+	if (mysqli_connect_errno())
+	
+	trigger_error(mysqli_connect_error());
 	
 	# recuperando os dados enviados via post:
 	$email = $_POST['email'];
@@ -9,15 +13,11 @@
 	$area_Pessoa = $_POST['area_Pessoa'];
 	$tipo = $_POST['tipo'];
 
-	$sql = $pdo->prepare("INSERT INTO lab.pessoa(email,senha,area_Pessoa,tipo)  VALUES (:email,:senha,:area_Pessoa,:tipo)");
+	$query = $conn->query("INSERT INTO lab.pessoa (`email`,`senha`,`area_Pessoa`,`tipo`)  VALUES (\"$email\", \"$senha\", \"$area_Pessoa\", \"$tipo\");");
 
-	$sql->bindValue(":email",$email);
-	$sql->bindValue(":senha",$senha);
-	$sql->bindValue(":area_Pessoa",$area_Pessoa);
-	$sql->bindValue(":tipo",$tipo);
+	$conn->close();
 	
 	try{
-		$conn = $sql->execute();
 		 
 		$_SESSION['erro'] = "OK";
 		header("location: index.php");

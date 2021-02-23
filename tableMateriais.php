@@ -1,8 +1,7 @@
 <?php
     include_once 'conexao.php';
-    $pdo = conectar();
-    $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat FROM lab.material");
-    $result = $sql->execute();
+    $sql = "SELECT id_mat,desc_mat,local_mat FROM material";
+    $result = mysqli_query($conn, $sql);    
     $tabela="<table class='table table-hover'>
         <thead>
             <tr>
@@ -14,11 +13,11 @@
         </thead>
         <tbody>";
 
-         while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+           while($exibir = mysqli_fetch_assoc($result)){
                 $id = $exibir['id_mat'];
-                $sql3 = $pdo->prepare("SELECT qtd_mat FROM lab.EstoqueMat where id_mat = '$id'" );
-                $result3 = $sql3->execute();
-                $resultMat =  $sql3->fetch(PDO::FETCH_ASSOC);
+                $sql3 = "SELECT qtd_mat FROM EstoqueMat where id_mat = '$id'";
+                $result3 = mysqli_query($conn, $sql3); 
+                $resultMat = mysqli_fetch_assoc($result3);
 
                 $tabela .="<td>".$exibir['desc_mat']."</td>";
                 $tabela .="<td>".$exibir['local_mat']."</td>";

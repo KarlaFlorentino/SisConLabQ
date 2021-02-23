@@ -1,11 +1,10 @@
  <?php
     include_once 'conexao.php';
-    $pdo = conectar();
     $select="<select id='classe' name='classe' class='form-control'>";
-    $sql = $pdo->prepare("SELECT id_classe,desc_classe FROM lab.classe");
-    $result = $sql->execute();
+    $sql = "SELECT id_classe,desc_classe FROM classe";
+    $result = mysqli_query($conn, $sql);
        
-    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+    while($exibir = mysqli_fetch_assoc($result)){
       $select.="<option value='".$exibir['id_classe']."'>".$exibir['desc_classe']."</option>";
     }
     $select.="</select>";

@@ -1,13 +1,20 @@
 <?php
-	include_once 'conexao.php'; 
-	$pdo = conectar(); 
+include 'conexao.php';
+session_start();
+# recuperando os dados enviados via post:
+
+if (mysqli_connect_errno())
+
+trigger_error(mysqli_connect_error());
 	$id = $_POST['busca1'];
 	$qtd = $_POST['busca2'];
-	$sql = $pdo->prepare("SELECT qtd_equip FROM lab.estoqueequip WHERE id_equip ='$id'");
-	$conn = $sql->execute();
-	$resultReag =  $sql->fetch(PDO::FETCH_ASSOC);
+
+	$sql = "SELECT qtd_Equip FROM lab.Estoqueequip WHERE id_Equip ='$id'";
+	$result = mysqli_query($conn, $sql);    
+	$resultReag = mysqli_fetch_assoc($result);
 	
-	$qtd2 = (int)$resultReag['qtd_equip'];
+	
+	$qtd2 = (int)$resultReag['qtd_Equip'];
 
 	$result = (int)$qtd2 - (int)$qtd;
     
@@ -16,13 +23,7 @@
 	if ($result < 0) {
 		echo 'Quantidade indisponível! Total disponivel: '.$qtd2.''; 
 	}else if ($result >= 0){
-		echo '<div class="form-group">
-			  <label class="col-md-4 control-label" for="desc_Equip">Descrição</label>
-			  <div class="col-md-5">
-				  <input id="desc_Equip" name="desc_Equip" type="text" placeholder="Descrição" class="form-control input-md" required="">
-				</div>
-			  </div>
-
+		echo '
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="idConfirmar"></label>
 			  <div class="col-md-8">

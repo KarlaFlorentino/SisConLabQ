@@ -1,16 +1,16 @@
 <?php
 
     include_once 'conexao.php';
-    $pdo = conectar();
     session_start();
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-    $sql = $pdo->prepare("SELECT * from lab.pessoa where email='$email' and senha='$senha'");
-    $sql->execute();
+    $query = "SELECT * from lab.pessoa where email='$email' and senha='$senha' ";
+    $resultado = $conn->query($query);
+   
 
-    if ($sql->rowCount() > 0) {
+    if ($resultado->num_rows > 0) {
 
-        $linha = $sql->fetch(PDO::FETCH_ASSOC);
+        $linha = $resultado->fetch_assoc();
         
         $_SESSION['user'] = $linha['email'];
         $_SESSION['area_pessoa'] = $linha['area_pessoa'];

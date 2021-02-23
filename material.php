@@ -8,7 +8,6 @@ session_start();
 <?php 
     include"header.php";
     include_once 'conexao.php';
-    $pdo = conectar(); 
         if (isset($_SESSION['user'])) {
 ?>
 
@@ -46,13 +45,16 @@ session_start();
             </thead>
             <?php
                     //$email = $_SESSION['user'];
-                    $sql = $pdo->prepare("SELECT id_mat,desc_mat,local_mat FROM lab.material");
-                    $result = $sql->execute();
-                    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+                    $sql = "SELECT id_mat,desc_mat,local_mat FROM material";
+                    $result = mysqli_query($conn, $sql);    
+
+                if(($result) AND ($result->num_rows != 0)){
+                
+                while($exibir = mysqli_fetch_assoc($result)){
                         $id = $exibir['id_mat'];
-                        $sql3 = $pdo->prepare("SELECT qtd_mat FROM lab.EstoqueMat where id_mat = '$id'" );
-                        $result3 = $sql3->execute();
-                        $resultMat =  $sql3->fetch(PDO::FETCH_ASSOC);
+                        $sql3 = "SELECT qtd_mat FROM lab.Estoquemat where id_mat = '$id'";
+                        $result3 = mysqli_query($conn, $sql3);   
+                        $resultMat = mysqli_fetch_assoc($result3);
                 ?>
             <tbody>
                 <tr>
@@ -64,7 +66,8 @@ session_start();
                                 id="<?php echo $exibir['id_mat']; ?>">Visualizar</button></a></td>
                 </tr>
                 <?php 
-                 } ?>
+                 } 
+                }?>
             </tbody>
         </table>
     </div>

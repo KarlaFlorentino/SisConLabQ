@@ -1,9 +1,9 @@
 <?php
     include_once 'conexao.php';
-    $pdo = conectar();
     $dataAtual = date("Y-m-d");
-    $sql = $pdo->prepare("SELECT lote,cas,desc_reag,id_risco FROM lab.reagente");
-    $result = $sql->execute();
+    $sql = "SELECT lote,cas,desc_reag,id_risco FROM reagente";
+    $result = mysqli_query($conn, $sql);    
+
     $tabela="<table class='table table-hover'>
     <thead>
       <tr>
@@ -20,17 +20,17 @@
     <tbody>
     	<tr>";
 
-    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+    while($exibir = mysqli_fetch_assoc($result)){
     	$pesq = $exibir['id_risco'];
-        $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
-        $result2 = $sql2->execute();
-        $risco = $sql2->fetch(PDO::FETCH_ASSOC);
+        $sql2 = "SELECT desc_risco FROM risco WHERE id_risco = '$pesq'";
+        $result2 = mysqli_query($conn, $sql2);   
+        $risco = mysqli_fetch_assoc($result2);
         
         $cas = $exibir['cas'];
 
-        $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade FROM lab.EstoqueReag where cas = '$cas'" );
-        $result3 = $sql3->execute();
-        $resultReag =  $sql3->fetch(PDO::FETCH_ASSOC);
+        $sql3 = "SELECT cas,qtd_reag,unidade,validade FROM EstoqueReag where cas = '$cas'" ;
+        $result3 = mysqli_query($conn, $sql3);   
+        $resultReag = mysqli_fetch_assoc($result3);
         
         $time_validade = strtotime($resultReag['validade']);
         $time_atual = strtotime($dataAtual);

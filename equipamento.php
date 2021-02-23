@@ -6,7 +6,6 @@ session_start();
 <?php 
     include"header.php";
     include_once 'conexao.php';
-    $pdo = conectar(); 
     if (isset($_SESSION['user'])) {
 ?>
 
@@ -39,16 +38,16 @@ session_start();
             </thead>
             <?php
             //$email = $_SESSION['user'];
-                $sql = $pdo->prepare("SELECT id_equip,desc_equip,local_equip FROM lab.equipamento");
-                $result = $sql->execute();
+                $sql = "SELECT id_equip,desc_equip,local_equip FROM equipamento";
+                $result = mysqli_query($conn, $sql);    
 
-
+                if(($result) AND ($result->num_rows != 0)){
                 
-                while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+                while($exibir = mysqli_fetch_assoc($result)){
                     $id = $exibir['id_equip'];
-                    $sql3 = $pdo->prepare("SELECT qtd_equip FROM lab.EstoqueEquip where id_equip = '$id'" );
-                    $result3 = $sql3->execute();
-                    $resultEquip =  $sql3->fetch(PDO::FETCH_ASSOC);
+                    $sql3 = "SELECT qtd_equip FROM EstoqueEquip where id_equip = '$id'";
+                    $result3 = mysqli_query($conn, $sql3);   
+                    $resultEquip = mysqli_fetch_assoc($result3);
                 ?>
             <tbody>
                <td><?php echo $exibir['desc_equip']; ?></td>
@@ -57,7 +56,8 @@ session_start();
                     <td><a href="" title="Visualizar Equipamento"><button type="button" class="btn btn-secundary" data-toggle="modal" data-target="#visulEquipamentoModal" id="<?php echo $exibir['id_equip']; ?>">Visualizar</button></a></td>
                 </tr>
                 <?php 
-                 } ?>
+                 } 
+                }?>
             </tbody>
         </table>
     </div>

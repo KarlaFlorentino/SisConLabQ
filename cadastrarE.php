@@ -1,7 +1,12 @@
 <?php
+include 'conexao.php';
+session_start();
+# recuperando os dados enviados via post:
 
-	include_once 'conexao.php';
-	$pdo = conectar();
+if (mysqli_connect_errno())
+
+trigger_error(mysqli_connect_error());
+
 	
 	# recuperando os dados enviados via post:
 	$id_Equip = filter_input(INPUT_POST, 'id_Equip', FILTER_SANITIZE_NUMBER_INT);
@@ -10,24 +15,19 @@
 	$local_Equip = filter_input(INPUT_POST, 'local_Equip', FILTER_SANITIZE_STRING);
 	$qtd_Equip = filter_input(INPUT_POST, 'qtd_Equip', FILTER_SANITIZE_NUMBER_INT);
 
-	$sql = $pdo->prepare("INSERT INTO lab.equipamento (id_Equip,desc_Equip,local_Equip,area_Equip)  VALUES (:id_Equip,:desc_Equip,:local_Equip,:area_Equip)");
-	$sql->bindValue(":id_Equip",$id_Equip);
-	$sql->bindValue(":desc_Equip",$desc_Equip);
-	$sql->bindValue(":local_Equip",$local_Equip);
-	$sql->bindValue(":area_Equip",$area_Equip);
+	$query = $conn->query("INSERT INTO lab.equipamento (`id_Equip`,`desc_Equip`,`local_Equip`,`area_Equip`)  VALUES (\"$id_Equip\", \"$desc_Equip\", \"$local_Equip\", \"$area_Equip\");");
+	$query = $conn->query("INSERT INTO lab.EstoqueEquip (`id_Equip`,`desc_Equip`,`qtd_Equip`)  VALUES (\"$id_Equip\", \"$desc_Equip\", \"$qtd_Equip\");");
+
 	
-	$sql2 = $pdo->prepare("INSERT INTO lab.EstoqueEquip (id_Equip,qtd_Equip)  VALUES (:id_Equip,:qtd_Equip)");
-	$sql2->bindValue(":id_Equip",$id_Equip);
-	$sql2->bindValue(":qtd_Equip",$qtd_Equip);
 	try{
-		$conn = $sql->execute();
+		$conn->close();
 		try {
-			$conn = $sql2->execute();
+			$conn->close();
 			echo true;
 		} catch (Exception $e) {
 			echo false;
-			$sql3 = $pdo->prepare("DELETE FROM lab.equipamento WHERE id_Equip = '$id_Equip'");
-			$conn = $sql3->execute();
+			$query = $con->query("DELETE FROM lab.equipamento WHERE id_Equip = '$id_Equip'");
+  			$conn->close();
 		}
 	}catch(Exception $e){
 		echo false;

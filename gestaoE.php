@@ -1,8 +1,7 @@
 <?php
 	session_start();
 	include"header.php"; 
-	include_once 'conexao.php'; 
-	$pdo = conectar(); 
+	include 'conexao.php'; 
 	if (isset($_SESSION['user'])) {
 ?>
 <script type="text/javascript">
@@ -30,22 +29,23 @@
 			  <div class="col-md-5" id="busca1">
 			  	<select id="id_Equip" name="id_Equip" class="form-control">
             	<?php
-          		    $sql = $pdo->prepare("SELECT id_Equip FROM lab.estoqueequip");
-          		    $result = $sql->execute();
-
+          		    
+					$sql = "SELECT id_Equip FROM lab.Estoqueequip";
+					$result = mysqli_query($conn, $sql);    
+					//$exibir = mysqli_fetch_assoc($result);
           		    ?>
           		    <option value="" disabled selected>Selecione</option>
           		    <?php
-          		    
-          		    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-          		    	$id =$exibir['id_equip'];
-          		    	$sql2 = $pdo->prepare("SELECT desc_Equip FROM lab.equipamento WHERE id_equip ='$id'");
-          		    	$result2 = $sql2->execute();
-          		    	$exibir2 = $sql2->fetch(PDO::FETCH_ASSOC);
+          		    while($exibir = mysqli_fetch_assoc($result)){
+          		    	$id =$exibir['id_Equip'];
+    					
+						$sql2 = "SELECT desc_Equip FROM lab.equipamento WHERE id_Equip ='$id'";
+                        $result2 = mysqli_query($conn, $sql2);    
+						$exibir2 = mysqli_fetch_assoc($result2);
           		    	$ponto = " - ";
           		    	?>
 
-          		      <option value="<?php echo $exibir['id_equip'];?>"><?php echo $exibir['id_equip'],$ponto,$exibir2['desc_equip']; ?></option>
+          		      <option value="<?php echo $exibir['id_Equip'];?>"><?php echo $exibir['id_Equip'],$ponto,$exibir2['desc_Equip']; ?></option>
           		     <?php 
           		     } ?>
               </select>

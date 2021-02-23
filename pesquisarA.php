@@ -1,9 +1,8 @@
 <?php
     include_once 'conexao.php';
-    $pdo = conectar();
     $queryString = $_POST['desc_Agenda'];
-    $sql = $pdo->prepare("SELECT  id_agenda,data,desc_agenda FROM lab.agenda where desc_agenda like('%" . $queryString . "%')");
-    $result = $sql->execute();
+    $sql = "SELECT  id_agenda,data,desc_agenda FROM agenda where desc_agenda like('%" . $queryString . "%')";
+    $result = mysqli_query($conn, $sql);
     $tabela="<table class='table table-hover'>
         <thead>
             <tr>
@@ -14,7 +13,7 @@
         </thead>
         <tbody>";
 
-         while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+         while($exibir = mysqli_fetch_assoc($result)){
                 $tabela .="<td>".$exibir['data']."</td>";
                 $tabela .="<td>".$exibir['desc_agenda']."</td>";
                 $tabela .="<td><a href='' title='Visualizar Agendamento'><button type='button' class='btn btn-secundary' data-toggle='modal' data-target='#visulAgendaModal'>Visualizar</button></a></td>";

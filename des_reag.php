@@ -1,18 +1,18 @@
 <?php
-	include_once 'conexao.php'; 
-	$pdo = conectar(); 
+	include 'conexao.php'; 
 	$cas = $_POST['busca'];
-	$sql = $pdo->prepare("SELECT desc_reag FROM lab.reagente WHERE cas ='$cas'");
-	$conn = $sql->execute();
-	$resultReag =  $sql->fetch(PDO::FETCH_ASSOC);
+	$sql = "SELECT desc_reag FROM reagente WHERE cas ='$cas'";
+
+	$result = mysqli_query($conn, $sql);    
+	$resultReag = mysqli_fetch_assoc($result);
+
 	
-	$desc2 = $resultReag['desc_reag'];
+	//$desc2 = $resultReag['desc_reag'];
     
 
-
-	if ($sql->rowCount() !=0) {
+	if(($result) AND ($result->num_rows != 0)){
 		echo '<input id="desc_reag" name="desc_reag" type="text"  value='.$resultReag['desc_reag'].' class="form-control input-md" readonly="readonly" style="text-align: center;">'; 
-	}else if ($sql->rowCount() ==0){
+	}else if($result->num_rows == 0){
 		echo '<input id="desc_reag" name="desc_reag" type="text" placeholder="Descrição" class="form-control input-md" required="" style="text-align: center;">' ;
 	}
 	

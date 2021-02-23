@@ -2,7 +2,6 @@
 	$id=$_POST['id'];
 	session_start();
 	include_once 'conexao.php';
-	$pdo = conectar();
 	
 	//echo "<script>alert('$id');</script>";
 	$name;
@@ -25,13 +24,12 @@
 	$anexo = $location."".$name;
 	//echo "<script>alert('$anexo');</script>";
 
-	$sql = $pdo->prepare("UPDATE lab.reagente SET anexo=:anexo WHERE cas='$id'");
+	$sql = "UPDATE reagente SET anexo= '$anexo' WHERE cas='$id'";
 
-	$sql->bindValue(":anexo",$anexo);
 	//var_dump($sql);
 
 	try{
-		$conn = $sql->execute();
+		mysqli_query($conn, $sql); 
 		$_SESSION['erro'] = "OK";
 		header("location:anexo.php?id=$id");
 	}catch(Exception $e){

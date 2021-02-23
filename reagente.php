@@ -22,7 +22,6 @@ session_start();
 include"header.php";
 
 include_once 'conexao.php';
-$pdo = conectar();
 
   if (isset($_SESSION['user'])) {
 ?>
@@ -59,22 +58,23 @@ $pdo = conectar();
       <?php
       //$email = $_SESSION['user'];
           $dataAtual = date("Y-m-d");
-          $sql = $pdo->prepare("SELECT lote,cas,desc_reag,id_risco FROM lab.reagente");
-          $result = $sql->execute();    
+          $sql = "SELECT lote,cas,desc_reag,id_risco FROM reagente";
+          $result = mysqli_query($conn, $sql);    
 
-          
-          while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+          if(($result) AND ($result->num_rows != 0)){
+
+          while($exibir = mysqli_fetch_assoc($result)){
           	
             $pesq = $exibir['id_risco'];
-            $sql2 = $pdo->prepare("SELECT desc_risco FROM lab.risco WHERE id_risco = '$pesq'");
-            $result2 = $sql2->execute();
-            $risco = $sql2->fetch(PDO::FETCH_ASSOC);
+            $sql2 = "SELECT desc_risco FROM risco WHERE id_risco = '$pesq'";
+            $result2 = mysqli_query($conn, $sql2);   
+            $risco = mysqli_fetch_assoc($result2);
 
             $lote = $exibir['lote'];
             $cas = $exibir['cas'];
-            $sql3 = $pdo->prepare("SELECT cas,qtd_reag,unidade,validade,lote FROM lab.EstoqueReag where cas = '$cas' AND lote = '$lote'" );
-          	$result3 = $sql3->execute();
-          	$resultReag =  $sql3->fetch(PDO::FETCH_ASSOC);
+            $sql3 = "SELECT cas,qtd_reag,unidade,validade,lote FROM EstoqueReag where cas = '$cas' AND lote = '$lote'";
+          	$result3 = mysqli_query($conn, $sql3);   
+          	$resultReag = mysqli_fetch_assoc($result3);
 
           ?>
 
@@ -105,7 +105,8 @@ $pdo = conectar();
           <td><a  title="Cadastrar Anexo"><button type="button" class="btn btn-success" id="<?php echo $exibir['cas']; ?>"  onclick="retornaValor(this)" name="BotaoAnexo">Anexo</button></a></td>
         </tr>
         <?php 
-           } ?>
+          }
+        }?>
       </tbody>
     </table>
   </div>
@@ -169,10 +170,10 @@ $pdo = conectar();
             <select id="classe" name="classe" class="form-control">
             	<?php
               //$email = $_SESSION['user'];
-          		    $sql = $pdo->prepare("SELECT id_classe,desc_classe FROM lab.classe");
-          		    $result = $sql->execute();
+          		    $sql = "SELECT id_classe,desc_classe FROM classe";
+          		    $result =  mysqli_query($conn, $sql); 
           		    
-          		    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){?>
+          		   while($exibir = mysqli_fetch_assoc($result)){?>
           		      <option value="<?php echo $exibir['id_classe'];?>"><?php echo $exibir['desc_classe']; ?></option>
           		     <?php 
           		     } ?>
@@ -187,10 +188,10 @@ $pdo = conectar();
             <div class="col-md-3" id="selRiscos">
               <select id="risco" name="risco" class="form-control">
                 <?php
-          		    $sql = $pdo->prepare("SELECT id_risco,desc_risco FROM lab.risco");
-          		    $result = $sql->execute();
+          		    $sql = "SELECT id_risco,desc_risco FROM risco";
+          		    $result =  mysqli_query($conn, $sql);
           		    
-          		    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){?>
+          		    while($exibir = mysqli_fetch_assoc($result)){?>
           		      <option value="<?php echo $exibir['id_risco'];?>"><?php echo $exibir['desc_risco']; ?></option>
           		     <?php 
           		     } ?>
@@ -285,10 +286,10 @@ $pdo = conectar();
             <select id="classe" name="classe" class="form-control">
               <?php
               //$email = $_SESSION['user'];
-                  $sql = $pdo->prepare("SELECT id_classe,desc_classe FROM lab.classe");
-                  $result = $sql->execute();
+                  $sql = "SELECT id_classe,desc_classe FROM lab.classe";
+                  $result =  mysqli_query($conn, $sql);
                   
-                  while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){?>
+                  while($exibir = mysqli_fetch_assoc($result)){?>
                     <option value="<?php echo $exibir['id_classe'];?>"><?php echo $exibir['desc_classe']; ?></option>
                    <?php 
                    } ?>
@@ -303,10 +304,10 @@ $pdo = conectar();
             <div class="col-md-3">
               <select id="risco" name="risco" class="form-control">
                 <?php
-                  $sql = $pdo->prepare("SELECT id_risco,desc_risco FROM lab.risco");
-                  $result = $sql->execute();
+                  $sql ="SELECT id_risco,desc_risco FROM lab.risco";
+                  $result =  mysqli_query($conn, $sql);
                   
-                  while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){?>
+                  while($exibir = mysqli_fetch_assoc($result)){?>
                     <option value="<?php echo $exibir['id_risco'];?>"><?php echo $exibir['desc_risco']; ?></option>
                    <?php 
                    } ?>

@@ -1,8 +1,7 @@
 <?php 
 	session_start();
 	include"header.php"; 
-	include_once 'conexao.php'; 
-	$pdo = conectar(); 
+	include 'conexao.php'; 
 	if (isset($_SESSION['user'])) {
 ?>
 <script type="text/javascript">
@@ -51,17 +50,18 @@
 	            	
 	            	<?php
 	              //$email = $_SESSION['user'];
-	          		    $sql = $pdo->prepare("SELECT DISTINCT cas FROM lab.estoquereag  ");
-	          		    $result = $sql->execute();
+	          		    $sql = "SELECT DISTINCT cas FROM lab.estoquereag";
+						$result = mysqli_query($conn, $sql);   
 	          		    ?>
 	          		    <option value="" disabled selected>Selecione</option>
 	          		    <?php
-	          		    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+	          		    while($exibir = mysqli_fetch_assoc($result)){
 	          		    	$id =$exibir['cas'];
-	          		    	$sql2 = $pdo->prepare("SELECT desc_reag FROM lab.reagente WHERE cas ='$id'");
-	          		    	$result2 = $sql2->execute();
-	          		    	$exibir2 = $sql2->fetch(PDO::FETCH_ASSOC);
-	          		    	$ponto = " - ";
+
+							$sql2 = "SELECT desc_reag FROM lab.reagente WHERE cas ='$id'";
+                        	$result2 = mysqli_query($conn, $sql2);    
+							$exibir2 = mysqli_fetch_assoc($result2);
+          		    		$ponto = " - ";
 	          		    	?>
 
 	          		      <option value="<?php echo $exibir['cas'];?>" ><?php echo $exibir['cas'],$ponto,$exibir2['desc_reag']; ?></option>

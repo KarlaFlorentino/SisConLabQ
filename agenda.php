@@ -6,7 +6,6 @@ session_start();
 <?php 
     include"header.php";
     include_once 'conexao.php';
-    $pdo = conectar(); 
     if (isset($_SESSION['user'])) {
 ?>
 <!--<script type="text/javascript">
@@ -52,10 +51,10 @@ session_start();
         </thead>
           <?php
               //$email = $_SESSION['user'];
-              $sql = $pdo->prepare("SELECT id_agenda,data,desc_agenda FROM lab.agenda");
-              $result = $sql->execute();
+              $sql = "SELECT id_agenda,data,desc_agenda FROM agenda";
+              $result = mysqli_query($conn, $sql);  
 
-              while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
+              while($exibir = mysqli_fetch_assoc($result)){
           ?>
         <tbody>
           <tr>

@@ -1,8 +1,7 @@
 <?php
 	session_start();
 	include"header.php"; 
-	include_once 'conexao.php'; 
-	$pdo = conectar(); 
+	include 'conexao.php'; 
 	if (isset($_SESSION['user'])) {
 ?>
 <script type="text/javascript">
@@ -32,22 +31,22 @@
 				  <select id="id_Mat" name="id_Mat" class="form-control">
 	            	<?php
 	              //$email = $_SESSION['user'];
-	          		    $sql = $pdo->prepare("SELECT id_mat FROM lab.estoquemat");
-	          		    $result = $sql->execute();
+	          		    $sql = "SELECT id_Mat FROM lab.Estoquemat";
+						$result = mysqli_query($conn, $sql);    
 
 	          		    ?>
 	          		    <option value="" disabled selected>Selecione</option>
 	          		    <?php
 	          		    
-	          		    while($exibir = $sql->fetch(PDO::FETCH_ASSOC)){
-	          		    	$id =$exibir['id_mat'];
-	          		    	$sql2 = $pdo->prepare("SELECT desc_mat FROM lab.material WHERE id_mat ='$id'");
-	          		    	$result2 = $sql2->execute();
-	          		    	$exibir2 = $sql2->fetch(PDO::FETCH_ASSOC);
+	          		    while($exibir = mysqli_fetch_assoc($result)){
+	          		    	$id = $exibir['id_Mat'];
+	          		    	$sql2 = "SELECT desc_Mat FROM lab.material WHERE id_Mat ='$id'";
+                            $result2 = mysqli_query($conn, $sql2);    
+							$exibir2 = mysqli_fetch_assoc($result2);
 	          		    	$ponto = " - ";
 	          		    	?>
 
-	          		      <option value="<?php echo $exibir['id_mat'];?>"><?php echo $exibir['id_mat'],$ponto,$exibir2['desc_mat']; ?></option>
+	          		      <option value="<?php echo $exibir['id_Mat'];?>"><?php echo $exibir['id_Mat'],$ponto,$exibir2['desc_Mat']; ?></option>
 	          		     <?php 
 	          		     } ?>
 	              </select>
